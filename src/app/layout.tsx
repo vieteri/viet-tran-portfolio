@@ -4,6 +4,7 @@ import { Inter } from
  'next/font/google';
 import './globals.css';
 import Navigation from '@/components/Navigation';
+import Head from 'next/head';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -19,6 +20,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <Head>
+       <link rel="icon" href="/favicon.ico" /> 
+       {/* ... other head tags ... */}
+     </Head>
       <body className={`${inter.className} min-h-screen flex flex-col`}> {/* Add min-h-screen and flex flex-col */}
         <header>
           <Navigation />
