@@ -6,7 +6,7 @@ export default function About() {
       <h1 className="text-4xl font-bold mb-6">About Me</h1>
       <Image src="/viet.png" alt="Viet Tran" width={250} height={250} className="mb-6" />
       <p className="mb-4">
-        I am an Integration Developer at Frends Enterprise iPaaS with a Master's degree 
+        I am an Integration Developer at Frends Enterprise iPaaS with a Master&apos;s degree 
         in Automation and Electrical Engineering from Aalto University.
       </p>
       <h2 className="text-2xl font-semibold mb-4">Skills</h2>
