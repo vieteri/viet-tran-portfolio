@@ -25,14 +25,14 @@ export default function About() {
       <h2 className="text-2xl font-semibold mb-4 mt-10">Education</h2>
       <ul className="list-disc pl-5">
         <li>
-          <b>Master's degree in Automation and Electrical Engineering (2020-2022)</b> {/* Example, replace with actual years */}
+        <b>Master&apos;s degree in Automation and Electrical Engineering</b>
           <br />
           Aalto University, School of Electrical Engineering <br />
           Major: Translational Engineering, Smart Buildings 
           {/* You can add thesis or project details here if relevant */}
         </li>
         <li>
-          <b>Bachelor's degree in Electrical Engineering</b> <br />
+          <b>Bachelor&apos;s degree in Electrical Engineering</b>
           Aalto University, School of Electrical Engineering <br />
           Major: Automation <br />
           Minor: Computer science
