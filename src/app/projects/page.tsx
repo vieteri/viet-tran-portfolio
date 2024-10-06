@@ -6,9 +6,7 @@ export default function Projects() {
       <h1 className="text-4xl font-bold mb-6">My Projects</h1>
       <ul className="space-y-6">
         <li>
-          <Link href="/frends-projects"> {/* Example link */}
             <h3 className="text-2xl font-semibold">Integration Development with Frends iPaaS</h3>
-          </Link>
           <p>Examples of integration projects developed using Frends Enterprise iPaaS platform.</p>
         </li>
         {/* ... other list items */}
