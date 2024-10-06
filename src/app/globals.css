@@ -24,4 +24,8 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+  .center-content {
+    display: grid;
+    place-items: center;
+  }
 }
