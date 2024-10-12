@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-6 text-center">
+    <main className="flex-col items-center justify-center p-6 text-center">
       <div className="max-w-4xl mx-auto space-y-8">
         <h1 className="text-4xl md:text-5xl font-bold text-white">Welcome to Viet Tran&apos;s Portfolio</h1>
         

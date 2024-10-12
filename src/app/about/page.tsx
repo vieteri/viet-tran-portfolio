@@ -23,12 +23,26 @@ export default function About() {
       <div className="text-center mb-12">
         <Image src="/viet.png" alt="Viet Tran" width={200} height={200} className="rounded-full mx-auto mb-4" />
         <h1 className="text-3xl font-bold mb-2 text-white">Viet Tran</h1>
-        <p className="text-xl text-gray-300">Integration Developer at Frends Enterprise iPaaS</p>
+        <p className="text-xl text-gray-300">Software developer </p>
       </div>
 
       <Section title="About Me">
-        <p>I am an MSc (Tech) with a Master&apos;s degree in electrical engineering, currently working as an Integration Developer at Frends Enterprise iPaaS.</p>
+        <p className="mb-4">
+          I am a passionate software developer with a Master’s degree in Electrical Engineering from Aalto University. 
+          My expertise lies in solving complex integration challenges, with a particular focus on API management and enterprise systems.
+        </p>
+        <p className="mb-4">
+          I believe that happiness and positivity are contagious, and I strive to bring that energy to both my work environment 
+          and my interactions with colleagues and clients. I enjoy working in collaborative environments where I can contribute my 
+          skills while learning from others.
+        </p>
+        <p className="mb-4">
+          Recently, I&apos;ve been expanding my knowledge in concept development and service design, combining technical expertise 
+          with user-centered design approaches to create innovative solutions. This allows me to bridge the gap between technology and 
+          human needs.
+        </p>
       </Section>
+
 
       <Section title="Work History">
         <ul className="list-none">
