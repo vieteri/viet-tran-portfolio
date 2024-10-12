@@ -1,6 +1,7 @@
 import React from "react";
+import { ContactLinkProps } from "../interfaces";
 
-const ContactLink = ({ href, text, children }) => (
+const ContactLink: React.FC<ContactLinkProps> = ({ href, text, children }) => (
   <a
     href={href}
     target="_blank"

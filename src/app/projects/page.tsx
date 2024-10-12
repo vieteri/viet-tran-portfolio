@@ -1,8 +1,9 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { ProjectItemProps } from "../interfaces";
 
-const ProjectItem = ({ title, description, imageSrc, imageAlt, githubLink }) => (
+const ProjectItem: React.FC<ProjectItemProps> = ({ title, description, imageSrc, imageAlt, githubLink }) => (
   <div className="mb-12">
     <h3 className="text-2xl font-semibold mb-2 text-white">{title}</h3>
     <p className="text-gray-300 mb-4">{description}</p>
@@ -15,7 +16,7 @@ const ProjectItem = ({ title, description, imageSrc, imageAlt, githubLink }) => 
 );
 
 export default function Projects() {
-  const projects = [
+  const projects: ProjectItemProps[] = [
     {
       title: "Tower Defence Game",
       description: "A tower defence game I developed using Python and Pygame",
@@ -23,7 +24,7 @@ export default function Projects() {
       imageAlt: "Tower Defence Game",
       githubLink: "https://github.com/vieteri/Tornipeli"
     },
-    // Add more projects here following the same structure
+    // Add more projects here
   ];
 
   return (

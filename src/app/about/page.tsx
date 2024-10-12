@@ -1,14 +1,16 @@
+// src/app/about/page.tsx
 import React from "react";
 import Image from "next/image";
+import { SectionProps, ListItemProps } from "../interfaces";  // Import the interfaces
 
-const Section = ({ title, children }) => (
+const Section: React.FC<SectionProps> = ({ title, children }) => (
   <div className="mb-12">
     <h2 className="text-2xl font-semibold mb-4 text-white">{title}</h2>
     <div className="text-gray-300">{children}</div>
   </div>
 );
 
-const ListItem = ({ title, description }) => (
+const ListItem: React.FC<ListItemProps> = ({ title, description }) => (
   <li className="mb-4">
     <h3 className="font-semibold text-white">{title}</h3>
     <p className="text-sm text-gray-400">{description}</p>
