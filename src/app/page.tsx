@@ -1,15 +1,34 @@
+import React from "react";
+import Image from "next/image";
+import Link from "next/link";
 
-import Image from 'next/image'
+const Button = ({ href, children }) => (
+  <Link href={href} className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition-colors">
+    {children}
+  </Link>
+);
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1 className="text-4xl font-bold">Welcome to Viet Tran&apos;s Portfolio</h1>
-      <Image src="/shrekfedora.jpg" alt="Viet Tran" width={250} height={250} />
-      <p className="text-center max-w-2xl">
-        I&apos;m an Integration Developer at Frends Enterprise iPaaS with a background in Software Engineering. 
-        This website showcases my skills, projects, and professional experience.
-      </p>
+    <main className="flex min-h-screen flex-col items-center justify-center p-6 text-center">
+      <div className="max-w-4xl mx-auto space-y-8">
+        <h1 className="text-4xl md:text-5xl font-bold text-white">Welcome to Viet Tran&apos;s Portfolio</h1>
+        
+        <div className="relative w-64 h-64 mx-auto rounded-full overflow-hidden">
+          <Image 
+            src="/shrekfedora.jpg" 
+            alt="Viet Tran" 
+            layout="fill" 
+            objectFit="cover"
+            className="transition-transform duration-300 transform hover:scale-110"
+          />
+        </div>
+        
+        <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+          I&apos;m an Integration Developer at Frends Enterprise iPaaS with a background in Software Engineering. 
+          This website showcases my skills, projects, and professional experience.
+        </p>
+      </div>
     </main>
-  )
+  );
 }
