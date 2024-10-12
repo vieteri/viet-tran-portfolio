@@ -25,6 +25,13 @@ export default function Projects() {
       githubLink: "https://github.com/vieteri/Tornipeli"
     },
     // Add more projects here
+    {
+      title: "Embedded systems",
+      description: "An embedded systems school project",
+      imageSrc: "",
+      imageAlt: "Embedde systems",
+      githubLink: "https://github.com/vieteri/raspirockingboat"
+    }
   ];
 
   return (
