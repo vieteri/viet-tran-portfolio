@@ -28,10 +28,17 @@ export default function Projects() {
     {
       title: "Embedded systems",
       description: "An embedded systems school project",
-      imageSrc: "",
-      imageAlt: "Embedde systems",
+      imageSrc: "/placeholder.png",
+      imageAlt: "Tower Defence Game",
       githubLink: "https://github.com/vieteri/raspirockingboat"
-    }
+    },
+    {
+      title: "Deno app",
+      description: "A web app created as a school project",
+      imageSrc: "/placeholder.png",
+      imageAlt: "Deno app",
+      githubLink: "https://github.com/vieteri/A-Gradewsdproject"
+    },
   ];
 
   return (
