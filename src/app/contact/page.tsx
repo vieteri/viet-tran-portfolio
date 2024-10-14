@@ -18,9 +18,9 @@ export default function Contact() {
       <h1 className="text-4xl font-bold mb-8 text-white">Contact Me</h1>
       <div className="text-gray-300 space-y-6">
         <p>
-          I&apos;m always open to new opportunities, collaborations, or just a friendly chat about 
-          technology and integration development. Feel free to reach out through any of the 
-          following platforms:
+        I&apos;m always eager to connect with fellow developers, explore new technologies, 
+        and discuss the latest in technology trends. Feel free to reach out for collaborations, 
+        insightful discussions, or simply to connect. You can find me on the following platforms:
         </p>
         <ul className="space-y-4">
           <li className="flex items-center">
