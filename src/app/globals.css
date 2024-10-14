@@ -29,3 +29,7 @@ body {
     place-items: center;
   }
 }
+
+p {
+  text-align: justify;
+}
