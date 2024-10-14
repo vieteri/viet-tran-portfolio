@@ -1,5 +1,5 @@
 import React from "react";
-import { ContactLinkProps } from "../interfaces";
+import { ContactLinkProps } from "@/app/interfaces";
 
 const ContactLink: React.FC<ContactLinkProps> = ({ href, text, children }) => (
   <a

@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ProjectItemProps } from "../interfaces";
+import { ProjectItemProps } from "@/app/interfaces";
 
 const ProjectItem: React.FC<ProjectItemProps> = ({ title, description, imageSrc, imageAlt, githubLink }) => (
   <div className="mb-12">

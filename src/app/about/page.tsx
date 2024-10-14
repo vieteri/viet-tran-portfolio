@@ -1,7 +1,7 @@
 // src/app/about/page.tsx
 import React from "react";
 import Image from "next/image";
-import { SectionProps, ListItemProps } from "../interfaces";  // Import the interfaces
+import { SectionProps, ListItemProps } from "@/app/interfaces";  // Import the interfaces
 
 const Section: React.FC<SectionProps> = ({ title, children }) => (
   <div className="mb-12">
