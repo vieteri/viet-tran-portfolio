@@ -26,7 +26,7 @@ export default function About() {
           alt="Viet Tran"
           width={200}
           height={200}
-          className="rounded-full mx-auto mb-4"
+          className="rounded-full mx-auto mb-4 transition-transform duration-300 transform hover:scale-110 "
         />
         <h1 className="text-3xl font-bold text-white">Viet Tran</h1>
         <p className="text-xl text-gray-300 text-center">Software developer</p> {/* Ensure text is centered */}
