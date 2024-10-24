@@ -28,7 +28,7 @@ export default function Projects() {
     {
       title: "Embedded systems",
       description: "An embedded systems school project",
-      imageSrc: "/placeholder.png",
+      imageSrc: "/embeddedsystems_translationalengineering.jpg",
       imageAlt: "Tower Defence Game",
       githubLink: "https://github.com/vieteri/raspirockingboat"
     },
@@ -39,6 +39,7 @@ export default function Projects() {
       imageAlt: "Deno app",
       githubLink: "https://github.com/vieteri/A-Gradewsdproject"
     },
+    
   ];
 
   return (
