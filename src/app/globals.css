@@ -33,3 +33,8 @@ body {
 p {
   text-align: justify;
 }
+
+.project-image {
+  width: 250px; 
+  height: auto;
+}

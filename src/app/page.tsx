@@ -8,13 +8,15 @@ export default function Home() {
         <h1 className="text-4xl md:text-5xl font-bold text-white">Welcome to Viet Tran&apos;s Portfolio</h1>
         
         <div className="relative w-64 h-64 mx-auto rounded-full overflow-hidden">
-          <Image 
-            src="/shrekfedora.jpg" 
-            alt="Viet Tran" 
-            layout="fill" 
-            objectFit="cover"
-            className="transition-transform duration-300 transform hover:scale-110"
-          />
+        <Image
+          src="/shrekfedora.jpg"
+          alt="Viet Tran"
+          fill
+          style={{ objectFit: 'cover' }}
+          sizes="(max-width: 768px) 100vw, 50vw" 
+          priority={true} 
+          className="transition-transform duration-300 transform hover:scale-110"
+        />
         </div>
         
         <p className="text-xl text-gray-300 max-w-2xl mx-auto">
