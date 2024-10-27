@@ -1,4 +1,3 @@
-import { slugify } from "@/utils/slugify";
 import Link from "next/link";
 import Image from "next/image";
 import { ProjectProps } from "@/app/interfaces";
