@@ -1,4 +1,9 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
-
-export default nextConfig;
+const nextConfig = {
+    images: {
+      domains: ['github.com'], // Add GitHub as an allowed domain for images
+    },
+  };
+  
+  export default nextConfig;
+  

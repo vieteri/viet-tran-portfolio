@@ -16,10 +16,14 @@ export interface ContactLinkProps {
     children?: React.ReactNode;
   }
 
-  export interface ProjectItemProps {
+
+  export interface ProjectProps {
     title: string;
+    slug: string;
     description: string;
     imageSrc: string;
     imageAlt: string;
+    readme: string;
     githubLink: string;
   }
+  

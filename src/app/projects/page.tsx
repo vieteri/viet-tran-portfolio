@@ -1,58 +1,50 @@
-import React from "react";
+import { slugify } from "@/utils/slugify";
 import Link from "next/link";
 import Image from "next/image";
-import { ProjectItemProps } from "@/app/interfaces";
+import { ProjectProps } from "@/app/interfaces";
+import { projects } from '@/data/projectsData';
 
-const ProjectItem: React.FC<ProjectItemProps> = ({ title, description, imageSrc, imageAlt, githubLink }) => (
-  <div className="mb-12">
-    <h3 className="text-2xl font-semibold mb-2 text-white">{title}</h3>
-    <p className="text-gray-300 mb-4">{description}</p>
-    <Image
-      src={imageSrc}
-      alt={imageAlt}
-      width={250} 
-      height={250}  // Remove or keep as needed, adjust in CSS
-      className="mb-4 project-image"
-      priority={imageSrc === "/path/to/lcp/image.jpg"} // Set priority for LCP image
-    />
-    <p className="text-gray-300 mb-2">Github repository:</p>
-    <Link href={githubLink} className="text-blue-400 hover:text-blue-300 transition-colors">
-      {githubLink.split("/").pop()}
-    </Link>
+const ProjectItem: React.FC<ProjectProps> = ({ title, slug, description, imageSrc, imageAlt, githubLink }) => (
+  <div className="bg-gray-900 rounded-lg shadow-lg overflow-hidden">
+    {imageSrc && (
+      <Link href={`/projects/${slug}`} className="block">
+        <Image
+          src={imageSrc}
+          alt={imageAlt || title}
+          width={800}
+          height={400}
+          className="object-cover w-full h-48"
+        />
+      </Link>
+    )}
+    <div className="p-6">
+      <h3 className="text-3xl font-semibold mb-2 text-white">
+        <Link href={`/projects/${slug}`} className="hover:underline">
+          {title}
+        </Link>
+      </h3>
+      <p className="text-gray-400 mb-4">{description}</p>
+      <div className="flex items-center justify-between">
+        <Link href={`/projects/${slug}`} className="text-blue-400 hover:text-blue-300">
+          Read more
+        </Link>
+        {githubLink && (
+          <Link href={githubLink} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-gray-300">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </Link>
+        )}
+      </div>
+    </div>
   </div>
 );
 
 export default function Projects() {
-  const projects: ProjectItemProps[] = [
-    {
-      title: "Tower Defence Game",
-      description: "A tower defence game I developed using Python and Pygame",
-      imageSrc: "/tornipeli_ingame.png",
-      imageAlt: "Tower Defence Game",
-      githubLink: "https://github.com/vieteri/Tornipeli"
-    },
-    // Add more projects here
-    {
-      title: "Embedded systems",
-      description: "An embedded systems school project",
-      imageSrc: "/embeddedsystems_translationalengineering.jpg",
-      imageAlt: "Tower Defence Game",
-      githubLink: "https://github.com/vieteri/raspirockingboat"
-    },
-    {
-      title: "Deno app",
-      description: "A web app created as a school project",
-      imageSrc: "/placeholder.png",
-      imageAlt: "Deno app",
-      githubLink: "https://github.com/vieteri/A-Gradewsdproject"
-    },
-    
-  ];
-
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <h1 className="text-4xl font-bold mb-12 text-white">My Projects</h1>
-      <div className="space-y-12">
+    <div className="max-w-7xl mx-auto p-6">
+      <h1 className="text-5xl font-bold mb-12 text-white text-center">My Projects</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
         {projects.map((project, index) => (
           <ProjectItem key={index} {...project} />
         ))}

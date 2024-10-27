@@ -38,3 +38,19 @@ p {
   width: 250px; 
   height: auto;
 }
+
+.inline-code {
+     background-color: #f0f0f0;
+     padding: 0.2em 0.4em;
+     border-radius: 3px;
+     font-family: monospace;
+   }
+
+.block-code {
+  background-color: #222;
+  color: #f8f8f2;
+  padding: 1em;
+  border-radius: 5px;
+  font-family: monospace;
+  overflow-x: auto; /* Enable horizontal scrolling if code is too long */
+}
