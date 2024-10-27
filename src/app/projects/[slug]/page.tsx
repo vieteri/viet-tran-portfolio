@@ -104,10 +104,11 @@ const ProjectPage = () => {
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
             components={{
-              h1: ({ node, ...props }) => <h1 className="text-4xl font-bold my-4 text-white" {...props} />,
-              h2: ({ node, ...props }) => <h2 className="text-3xl font-semibold my-3 text-white" {...props} />,
-              h3: ({ node, ...props }) => <h3 className="text-2xl font-semibold my-2 text-white" {...props} />,
-              p: ({ node, children, ...props }) => {
+              // Removed unused 'node' parameter
+              h1: ({ ...props }) => <h1 className="text-4xl font-bold my-4 text-white" {...props} />,
+              h2: ({ ...props }) => <h2 className="text-3xl font-semibold my-3 text-white" {...props} />,
+              h3: ({ ...props }) => <h3 className="text-2xl font-semibold my-2 text-white" {...props} />,
+              p: ({ children, ...props }) => {
                 const hasOnlyImage = React.Children.toArray(children).every(
                   child => React.isValidElement(child) && child.type === 'img'
                 );
@@ -121,10 +122,9 @@ const ProjectPage = () => {
               img: ({ src, alt }) => {
                 if (!src) return null;
                 
-                // Handle image paths
                 const imageUrl = src.startsWith('http') 
-                ? src 
-                : src.replace(/^\/public/, '');
+                  ? src 
+                  : src.replace(/^\/public/, '');
                 
                 return (
                   <span className="block my-4">
@@ -139,13 +139,12 @@ const ProjectPage = () => {
                   </span>
                 );
               },
-              code: ({ node, className, children, ...props }) => {
-                return (
-                  <code className="bg-gray-800 rounded px-1 py-0.5" {...props}>{children}</code>
-                
-                );
-              },
-              pre: ({ node, children, ...props }) => (
+              // Removed unused 'node' and 'className' parameters
+              code: ({ children, ...props }) => (
+                <code className="bg-gray-800 rounded px-1 py-0.5" {...props}>{children}</code>
+              ),
+              // Removed unused 'node' parameter
+              pre: ({ children, ...props }) => (
                 <pre className="bg-gray-800 rounded p-4 my-4 overflow-x-auto" {...props}>
                   {children}
                 </pre>
