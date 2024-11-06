@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: 'Viet Tran - Integration Developer',
   description: 'Portfolio of Viet Tran, Integration Developer',
   icons: {
-    icon: '/favicon.ico',
+    icon: '/viet-sword-favicon.svg',
   },
 };
 
