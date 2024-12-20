@@ -31,10 +31,19 @@ export const projects = [
   {
     slug: 'old-portfolio-page',
     title: 'Portfolio - Viet (Old)',
-    description: 'vieteri.github.io',
+    description: 'vieteri.github.io - Old portfolio page built with Jekyll',
     imageSrc: '/jekyll.png',
-    imageAlt: '',
+    imageAlt: 'Old portfolio page',
     readme: '/readmes/portfolio.md',
-    githubLink: 'https://github.com/vieteri/fullstack2020',
+    githubLink: 'https://github.com/vieteri/vieteri.github.io',
+  },
+  {
+    slug: "XML-transform-tool",
+    title: 'XSLT transform tool',
+    description: 'Live xslt tool - XSLT transform tool built with Next.js',
+    imageSrc: '/XMLTransform.png',
+    imageAlt: 'XSLT transform tool',
+    readme: '/readmes/XMLtransform.md',
+    githubLink: 'https://github.com/vieteri/livexslt',
   },
 ];
