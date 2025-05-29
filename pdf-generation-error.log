@@ -1,0 +1,4 @@
+Error at 2025-05-29T09:58:03.773Z
+Error: net::ERR_CONNECTION_REFUSED at http://localhost:3000/cv
+    at <anonymous> (/Users/viettran/Documents/Documents - Viet’s MacBook Air/github/viet-tran-portfolio/node_modules/puppeteer-core/lib/esm/puppeteer/cdp/Frame.js:180:31)
+    at processTicksAndRejections (native:7:39)

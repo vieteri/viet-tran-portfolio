@@ -1,16 +1,18 @@
+'use client';
+
 // src/app/about/page.tsx
-import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { SectionProps, ListItemProps } from "@/app/interfaces";  // Import the interfaces
 
-const Section: React.FC<SectionProps> = ({ title, children }) => (
+const Section = ({ title, children }: SectionProps) => (
   <div className="mb-12">
     <h2 className="text-2xl font-semibold mb-4 text-white">{title}</h2>
     <div className="text-gray-300">{children}</div>
   </div>
 );
 
-const ListItem: React.FC<ListItemProps> = ({ title, description }) => (
+const ListItem = ({ title, description }: ListItemProps) => (
   <li className="mb-4">
     <h3 className="font-semibold text-white">{title}</h3>
     <p className="text-sm text-gray-400">{description}</p>
@@ -26,15 +28,21 @@ export default function About() {
           alt="Viet Tran"
           width={200}
           height={200}
-          className="rounded-full mx-auto mb-4 transition-transform duration-300 transform hover:scale-110 "
+          className="rounded-full mx-auto mb-4 transition-transform duration-300 transform hover:scale-110"
         />
         <h1 className="text-3xl font-bold text-white">Viet Tran</h1>
-        <p className="text-xl text-gray-300 text-center">Software developer</p> {/* Ensure text is centered */}
+        <p className="text-xl text-gray-300 text-center mb-6">Software developer</p>
+        <Link 
+          href="/about/cv" 
+          className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 shadow-lg"
+        >
+          View CV
+        </Link>
       </div>
 
       <Section title="About Me">
         <p className="mb-4">
-          I am a passionate software developer with a Master’s degree in Electrical Engineering from Aalto University. 
+          I am a passionate software developer with a Master&apos;s degree in Electrical Engineering from Aalto University. 
           My expertise lies in solving complex integration challenges, with a particular focus on API management and enterprise systems.
         </p>
         <p className="mb-4">
@@ -74,11 +82,11 @@ export default function About() {
       <Section title="Education">
         <ul className="list-none">
           <ListItem 
-            title="Master&apos;s degree in Automation and Electrical Engineering"
+            title="Master's degree in Automation and Electrical Engineering"
             description="Aalto University, School of Electrical Engineering. Major: Translational Engineering, Smart Buildings"
           />
           <ListItem 
-            title="Bachelor&apos;s degree in Electrical Engineering"
+            title="Bachelor's degree in Electrical Engineering"
             description="Aalto University, School of Electrical Engineering. Major: Automation, Minor: Computer Science"
           />
         </ul>
