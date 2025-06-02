@@ -209,7 +209,10 @@ const CVComponent = () => {
                   "Docker Containerization",
                   "Version Control with Git",
                   "PowerShell Scripting",
-                  "JSON/XML Processing"
+                  "JSON/XML Processing",
+                  ".NET",
+                  "C#",
+                  "Python"
                 ].map((skill, index) => (
                   <div key={index} className="flex items-start">
                     <span className="text-blue-300 mr-3">▸</span>
@@ -299,6 +302,14 @@ const CVComponent = () => {
                     <span className="text-blue-400 mr-3 font-bold">●</span>
                     <span>Established API lifecycle management practices including documentation, versioning, monitoring, and governance using Frends platform</span>
                   </li>
+                  <li className="flex items-start">
+                    <span className="text-blue-400 mr-3 font-bold">●</span>
+                    <span>Created and bug-fixed a variety of Frends tasks, primarily utilizing .NET and C# for development</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-blue-400 mr-3 font-bold">●</span>
+                    <span>Proficient in bug fixing through detailed analysis of event logs</span>
+                  </li>
                 </ul>
               </div>
 
@@ -334,6 +345,10 @@ const CVComponent = () => {
                   <li className="flex items-start">
                     <span className="text-blue-400 mr-3 font-bold">●</span>
                     <span>Served as database administrator managing high-volume transactional systems with focus on reliability, performance tuning, and data integrity</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-blue-400 mr-3 font-bold">●</span>
+                    <span>Proficient in bug fixing through detailed analysis of event logs</span>
                   </li>
                 </ul>
               </div>
