@@ -17,7 +17,11 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-geist-mono);
 }
 
 @layer utilities {
@@ -53,4 +57,21 @@ p {
   border-radius: 5px;
   font-family: monospace;
   overflow-x: auto; /* Enable horizontal scrolling if code is too long */
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .cv-container, .cv-container * {
+    visibility: visible;
+  }
+  .cv-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  .no-print {
+    display: none !important;
+  }
 }

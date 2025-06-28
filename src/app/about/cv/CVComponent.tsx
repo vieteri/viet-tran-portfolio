@@ -180,13 +180,10 @@ const CVComponent = () => {
                 <span className="mr-4">📍</span>
                 <span>Helsinki, Uusimaa 00260</span>
               </div>
-              <div className="flex items-center mb-4">
-                <span className="mr-4">📱</span>
-                <span>0451339339</span>
-              </div>
+
               <div className="flex items-center mb-4">
                 <span className="mr-4">✉️</span>
-                <span>viet_tran@windowslive.com</span>
+                <span>it@viet.fi</span>
               </div>
             </div>
 
@@ -212,7 +209,15 @@ const CVComponent = () => {
                   "JSON/XML Processing",
                   ".NET",
                   "C#",
-                  "Python"
+                  "Python",
+                  "AI/ML Integration (Gemini API)",
+                  "RAG (Retrieval-Augmented Generation)",
+                  "Text-to-Speech (TTS) Implementation",
+                  "Web Speech API",
+                  "Telegram Bot Development",
+                  "Serverless Architecture",
+                  "Webhook Implementation",
+                  "Function Calling APIs"
                 ].map((skill, index) => (
                   <div key={index} className="flex items-start">
                     <span className="text-blue-300 mr-3">▸</span>
@@ -379,7 +384,7 @@ const CVComponent = () => {
             </div>
 
             {/* Education */}
-            <div>
+            <div className="mb-10">
               <h2 className="text-2xl font-semibold text-blue-800 mb-8 relative">
                 Education
                 <div className="blue-gradient absolute bottom-0 left-0 w-16 h-1 bg-gradient-to-r from-blue-600 to-blue-400"></div>
@@ -399,6 +404,84 @@ const CVComponent = () => {
                   Specialized in industrial automation systems, control engineering, and integration technologies. 
                   Academic focus on bridging software development with industrial control systems.
                 </p>
+              </div>
+            </div>
+
+            {/* Personal Projects */}
+            <div>
+              <h2 className="text-2xl font-semibold text-blue-800 mb-8 relative">
+                Personal Projects
+                <div className="blue-gradient absolute bottom-0 left-0 w-16 h-1 bg-gradient-to-r from-blue-600 to-blue-400"></div>
+              </h2>
+              
+              {/* Telegram Chatbot */}
+              <div className="mb-8 relative pl-6">
+                <div className="absolute left-0 top-2 w-2 h-2 bg-blue-600 rounded-full"></div>
+                <div className="flex flex-wrap justify-between items-start mb-3">
+                  <div>
+                    <h3 className="text-xl font-semibold text-blue-700">Telegram Gemini 2.5 Flash Chatbot</h3>
+                    <p className="text-gray-600 font-medium">AI Chatbot with Internet Search</p>
+                  </div>
+                  <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+                    Personal Project
+                  </span>
+                </div>
+                <p className="text-gray-700 mb-4">
+                  Developed a powerful Telegram chatbot powered by Google&apos;s Gemini 2.5 Flash with real-time internet search capabilities and unfiltered responses.
+                </p>
+                <ul className="space-y-2 text-gray-700">
+                  <li className="flex items-start">
+                    <span className="text-blue-400 mr-3 font-bold">●</span>
+                    <span>Built with Node.js serverless architecture and integrated Gemini 2.5 Flash for advanced reasoning</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-blue-400 mr-3 font-bold">●</span>
+                    <span>Implemented automatic search detection with built-in Google Search and citation capabilities</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-blue-400 mr-3 font-bold">●</span>
+                    <span>Features conversation memory, HTML formatting, and intelligent message chunking for long responses</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-blue-400 mr-3 font-bold">●</span>
+                    <span>Deployed with webhook-based architecture on Vercel for real-time messaging capabilities</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* AI Fitness Coach */}
+              <div className="relative pl-6">
+                <div className="absolute left-0 top-2 w-2 h-2 bg-blue-600 rounded-full"></div>
+                <div className="flex flex-wrap justify-between items-start mb-3">
+                  <div>
+                    <h3 className="text-xl font-semibold text-blue-700">AI Fitness Coach Application</h3>
+                    <p className="text-gray-600 font-medium">fit.viet.fi</p>
+                  </div>
+                  <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+                    Personal Project
+                  </span>
+                </div>
+                <p className="text-gray-700 mb-4">
+                  Developed an AI-powered fitness coaching web application featuring voice interaction capabilities and personalized workout guidance.
+                </p>
+                <ul className="space-y-2 text-gray-700">
+                  <li className="flex items-start">
+                    <span className="text-blue-400 mr-3 font-bold">●</span>
+                    <span>Built with Next.js 15 and integrated Google Gemini 2.0 Flash API for intelligent fitness coaching</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-blue-400 mr-3 font-bold">●</span>
+                    <span>Implemented RAG (Retrieval-Augmented Generation) capabilities for contextual fitness advice</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-blue-400 mr-3 font-bold">●</span>
+                    <span>Integrated Text-to-Speech (TTS) functionality using Web Speech API for voice-enabled coaching</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-blue-400 mr-3 font-bold">●</span>
+                    <span>Deployed on Vercel with Supabase integration for user authentication and data persistence</span>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>

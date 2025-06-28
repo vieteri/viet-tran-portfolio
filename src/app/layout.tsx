@@ -1,9 +1,16 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import localFont from 'next/font/local';
 import './globals.css';
 import Navigation from '@/components/Navigation';
 
-const inter = Inter({ subsets: ['latin'] });
+const geistSans = localFont({
+  src: './fonts/GeistVF.woff',
+  variable: '--font-geist-sans',
+});
+const geistMono = localFont({
+  src: './fonts/GeistMonoVF.woff',
+  variable: '--font-geist-mono',
+});
 
 export const metadata: Metadata = {
   title: 'Viet Tran - Integration Developer',
@@ -18,9 +25,52 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Viet Tran",
+    "jobTitle": "Integration Developer",
+    "email": "it@viet.fi",
+    
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Helsinki",
+      "addressCountry": "FI"
+    },
+    "url": "https://viettran.dev",
+    "knowsAbout": [
+      "API Management",
+      "ERP Integration",
+      "D365 Integrations",
+      "SQL",
+      "SAP",
+      "Python",
+      "TypeScript",
+      "JavaScript",
+      "C#",
+      "C++"
+    ],
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Frends Oy",
+      "startDate": "2024-01"
+    },
+    "alumniOf": {
+      "@type": "CollegeOrUniversity",
+      "name": "Aalto University",
+      "areaServed": "Helsinki"
+    }
+  };
+
   return (
     <html lang="en">
-      <body className={`${inter.className} min-h-screen flex flex-col bg-gray-900 text-white`}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
+      </head>
+      <body className={`${geistSans.variable} ${geistMono.variable} font-sans min-h-screen flex flex-col bg-gray-900 text-white`}>
         <header className="bg-gray-800">
           <div className="max-w-4xl mx-auto px-4">
             <Navigation />

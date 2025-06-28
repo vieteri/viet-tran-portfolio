@@ -13,8 +13,8 @@ export default function CVComponent() {
     const csvData = [
       ['Name', 'Viet Tran'],
       ['Job Title', 'Integration Developer'],
-      ['Email', 'viettran@outlook.com'],
-      ['Phone', '+358 50 384 3333'],
+      ['Email', 'it@viet.fi'],
+
       ['Location', 'Helsinki, Finland'],
       ['Website', 'https://viettran.dev'],
       ['Skills', 'API Management, ERP Integration, D365 Integrations, SQL, SAP, Python, TypeScript, JavaScript, C#, C++'],
@@ -38,8 +38,8 @@ export default function CVComponent() {
     "@type": "Person",
     "name": "Viet Tran",
     "jobTitle": "Integration Developer",
-    "email": "viettran@outlook.com",
-    "telephone": "+358 50 384 3333",
+    "email": "it@viet.fi",
+
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Helsinki",

@@ -1,6 +1,24 @@
 // data/projectsData.ts
 export const projects = [
   {
+    slug: 'telegram-gemini-chatbot',
+    title: 'Telegram Gemini 2.5 Flash Chatbot',
+    description: 'A powerful Telegram chatbot powered by Google\'s Gemini 2.5 Flash with real-time internet search capabilities and unfiltered responses.',
+    imageSrc: '/readmes/images/File_Telegram_logo.svg',
+    imageAlt: 'Telegram Gemini Chatbot',
+    readme: '/readmes/telegram-gemini-chatbot.md',
+    githubLink: 'https://github.com/vieteri/chatbot',
+  },
+  {
+    slug: 'ai-fitness-coach',
+    title: 'AI Fitness Coach Application',
+    description: 'AI-powered fitness coaching web application with voice interaction capabilities, built with Next.js 15, Gemini 2.0 Flash API, and RAG implementation.',
+    imageSrc: '/readmes/images/fitcoach.jpeg',
+    imageAlt: 'AI Fitness Coach Application',
+    readme: '/readmes/ai-fitness-coach.md',
+    githubLink: 'https://github.com/vieteri/fitapp',
+  },
+  {
     slug: 'tower-defence-game',
     title: 'Tower Defence Game',
     description: 'A detailed description of the Tower Defence Game I developed using Python and Pygame.',
