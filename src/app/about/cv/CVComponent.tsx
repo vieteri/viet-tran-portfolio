@@ -9,21 +9,21 @@ const CVComponent = () => {
 
   const handleDownloadPDF = () => {
     setIsGeneratingPDF(true);
-    
+
     // Ensure all content is loaded and rendered
     setTimeout(() => {
       // Add print-specific class to body
       document.body.classList.add('printing');
-      
+
       // Focus on the CV container to ensure it's rendered
       const cvContainer = document.querySelector('.cv-container');
       if (cvContainer) {
         cvContainer.scrollIntoView();
       }
-      
+
       // Trigger print dialog
       window.print();
-      
+
       // Clean up after print dialog closes
       setTimeout(() => {
         document.body.classList.remove('printing');
@@ -32,7 +32,7 @@ const CVComponent = () => {
     }, 200);
   };
 
-  
+
   return (
     <>
       {/* Enhanced Print Styles for PDF */}
@@ -164,7 +164,7 @@ const CVComponent = () => {
           <div className="sidebar bg-gradient-to-br from-blue-800 to-blue-900 text-white p-8">
             <div className="text-center mb-10">
               <Image
-                src="/viet.png"
+                src="/viet-2026.png"
                 alt="Viet Tran - Integration Developer"
                 width={200}
                 height={200}
@@ -260,9 +260,9 @@ const CVComponent = () => {
             <div className="gradient-bg bg-gradient-to-r from-gray-50 to-gray-100 p-8 rounded-lg mb-10 border-l-4 border-blue-600">
               <h2 className="text-xl font-semibold text-blue-800 mb-4">Professional Summary</h2>
               <p className="text-gray-700 leading-relaxed">
-                Integration Developer with extensive experience in enterprise system integration, 
-                warehouse management systems, and industrial automation. Proven track record of 
-                delivering complex ERP integrations, SCADA implementations, and data transformation 
+                Integration Developer with extensive experience in enterprise system integration,
+                warehouse management systems, and industrial automation. Proven track record of
+                delivering complex ERP integrations, SCADA implementations, and data transformation
                 solutions across diverse industries including energy, logistics, and construction.
               </p>
             </div>
@@ -401,7 +401,7 @@ const CVComponent = () => {
                   </span>
                 </div>
                 <p className="text-gray-700">
-                  Specialized in industrial automation systems, control engineering, and integration technologies. 
+                  Specialized in industrial automation systems, control engineering, and integration technologies.
                   Academic focus on bridging software development with industrial control systems.
                 </p>
               </div>
@@ -413,7 +413,7 @@ const CVComponent = () => {
                 Personal Projects
                 <div className="blue-gradient absolute bottom-0 left-0 w-16 h-1 bg-gradient-to-r from-blue-600 to-blue-400"></div>
               </h2>
-              
+
               {/* Telegram Chatbot */}
               <div className="mb-8 relative pl-6">
                 <div className="absolute left-0 top-2 w-2 h-2 bg-blue-600 rounded-full"></div>

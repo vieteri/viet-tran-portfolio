@@ -14,7 +14,7 @@ import { projects } from "@/data/projectsData";
 export default function Home() {
   return (
     <div className="min-h-screen bg-gray-900 selection:bg-blue-500/30">
-      
+
       {/* Hero Section */}
       <section id="home" className="relative min-h-screen flex items-center justify-center pt-16 overflow-hidden">
         {/* Background Gradients */}
@@ -47,7 +47,7 @@ export default function Home() {
             >
               Software Engineer specializing in <span className="text-primary-400 font-semibold">Enterprise Systems</span>, <span className="text-secondary-400 font-semibold">API Architecture</span>, and <span className="text-accent-400 font-semibold">AI Solutions</span>.
             </motion.p>
-            
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -100,7 +100,7 @@ export default function Home() {
             <div className="relative w-72 h-72 md:w-96 md:h-96">
               <div className="absolute inset-0 bg-gradient-to-tr from-primary-500 to-secondary-500 rounded-full blur-2xl opacity-20 animate-pulse"></div>
               <Image
-                src="/viet.png"
+                src="/viet-2026.png"
                 alt="Viet Tran - Integration Developer"
                 fill
                 style={{ objectFit: 'cover' }}
@@ -203,31 +203,31 @@ export default function Home() {
       {/* Experience & Education Section */}
       <section id="experience" className="py-24">
         <div className="max-w-7xl mx-auto px-6">
-           <div className="grid md:grid-cols-2 gap-16">
-              <div>
-                <div className="mb-12">
-                  <h2 className="text-3xl font-bold text-white mb-4 flex items-center">
-                    <span className="bg-blue-600/20 p-2 rounded-lg mr-3 text-blue-400">
-                      <ArrowRight className="w-6 h-6" />
-                    </span>
-                    Experience
-                  </h2>
-                </div>
-                <Experience />
+          <div className="grid md:grid-cols-2 gap-16">
+            <div>
+              <div className="mb-12">
+                <h2 className="text-3xl font-bold text-white mb-4 flex items-center">
+                  <span className="bg-blue-600/20 p-2 rounded-lg mr-3 text-blue-400">
+                    <ArrowRight className="w-6 h-6" />
+                  </span>
+                  Experience
+                </h2>
               </div>
+              <Experience />
+            </div>
 
-              <div>
-                <div className="mb-12">
-                  <h2 className="text-3xl font-bold text-white mb-4 flex items-center">
-                    <span className="bg-purple-600/20 p-2 rounded-lg mr-3 text-purple-400">
-                      <ArrowRight className="w-6 h-6" />
-                    </span>
-                    Education
-                  </h2>
-                </div>
-                <Education />
+            <div>
+              <div className="mb-12">
+                <h2 className="text-3xl font-bold text-white mb-4 flex items-center">
+                  <span className="bg-purple-600/20 p-2 rounded-lg mr-3 text-purple-400">
+                    <ArrowRight className="w-6 h-6" />
+                  </span>
+                  Education
+                </h2>
               </div>
-           </div>
+              <Education />
+            </div>
+          </div>
         </div>
       </section>
 
@@ -277,7 +277,7 @@ export default function Home() {
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-60"></div>
                 </div>
-                
+
                 <div className="p-6 flex-grow flex flex-col">
                   <h3 className="text-xl font-bold text-white mb-2 group-hover:text-primary-400 transition-colors">
                     {project.title}
@@ -285,7 +285,7 @@ export default function Home() {
                   <p className="text-gray-400 text-sm mb-6 line-clamp-3 flex-grow">
                     {project.description}
                   </p>
-                  
+
                   <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-800">
                     <Link
                       href={`/projects/${project.slug}`}
@@ -294,9 +294,9 @@ export default function Home() {
                       View Case Study
                       <ArrowRight className="w-4 h-4 ml-1 transform group-hover/link:translate-x-1 transition-transform" />
                     </Link>
-                    
+
                     {project.githubLink && (
-                      <a 
+                      <a
                         href={project.githubLink}
                         target="_blank"
                         rel="noopener noreferrer"
@@ -311,11 +311,11 @@ export default function Home() {
               </motion.div>
             ))}
           </div>
-          
+
           <div className="text-center mt-12">
-            <a 
-              href="https://github.com/vieteri" 
-              target="_blank" 
+            <a
+              href="https://github.com/vieteri"
+              target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center px-6 py-3 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
             >
