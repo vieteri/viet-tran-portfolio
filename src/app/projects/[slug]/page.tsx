@@ -38,8 +38,7 @@ const ProjectPage = () => {
           const response = await fetch(projectInfo.readme);
           const content = await response.text();
           setReadmeContent(content);
-        } catch (readmeError) {
-          console.error('Error loading README:', readmeError);
+        } catch {
           setError('Failed to load project documentation');
         }
 
@@ -120,11 +119,12 @@ const ProjectPage = () => {
                 return <p className="text-lg my-2 text-gray-300" {...props}>{children}</p>;
               },
               img: ({ src, alt }) => {
-                if (!src) return null;
+                const srcString = typeof src === 'string' ? src : '';
+                if (!srcString) return null;
                 
-                const imageUrl = src.startsWith('http') 
-                  ? src 
-                  : src.replace(/^\/public/, '');
+                const imageUrl = srcString.startsWith('http') 
+                  ? srcString 
+                  : srcString.replace(/^\/public/, '');
                 
                 return (
                   <span className="block my-4">

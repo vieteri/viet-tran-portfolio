@@ -2,63 +2,54 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: var(--font-geist-sans);
-}
+  body {
+    @apply bg-gray-900 text-white;
+  }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-geist-mono);
+  /* Improve focus visibility for accessibility */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-primary-500 ring-offset-2 ring-offset-gray-900;
+  }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
-  .center-content {
-    display: grid;
-    place-items: center;
-  }
 }
 
-p {
-  text-align: justify;
-}
-
-.project-image {
-  width: 250px; 
-  height: auto;
-}
-
+/* Code styling for markdown */
 .inline-code {
-     background-color: #f0f0f0;
-     padding: 0.2em 0.4em;
-     border-radius: 3px;
-     font-family: monospace;
-   }
+  background-color: #1f2937;
+  color: #60a5fa;
+  padding: 0.2em 0.4em;
+  border-radius: 0.25rem;
+  font-family: monospace;
+  font-size: 0.875em;
+}
 
 .block-code {
-  background-color: #222;
-  color: #f8f8f2;
-  padding: 1em;
-  border-radius: 5px;
+  background-color: #111827;
+  color: #f3f4f6;
+  padding: 1rem;
+  border-radius: 0.5rem;
   font-family: monospace;
-  overflow-x: auto; /* Enable horizontal scrolling if code is too long */
+  overflow-x: auto;
+  border: 1px solid #374151;
 }
 
+/* Print styles for CV */
 @media print {
   body * {
     visibility: hidden;
