@@ -26,8 +26,12 @@ const CVComponent = () => {
       <style jsx global>{`
         @media print {
           @page {
-            margin: 15mm 0;
+            margin: 25mm 0 20mm 0;
             size: A4;
+          }
+          @page :first {
+            margin-top: 0;
+            margin-bottom: 0;
           }
           /* Hide everything by default */
           body * {
@@ -39,6 +43,8 @@ const CVComponent = () => {
           }
           /* Position the CV content at the top-left */
           #printable-cv {
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
             position: absolute;
             left: 0;
             top: 0;
@@ -69,8 +75,7 @@ const CVComponent = () => {
       `}</style>
 
       {/* Controls */}
-      <div className="max-w-4xl mx-auto mb-6 px-4 no-print flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-gray-800">Preview Mode</h1>
+      <div className="max-w-4xl mx-auto mb-6 px-4 no-print flex justify-end items-center">
         <button
           onClick={handleDownloadPDF}
           disabled={isGeneratingPDF}
@@ -82,16 +87,16 @@ const CVComponent = () => {
       </div>
 
       {/* A4 Page Container */}
-      <div id="printable-cv" className="mx-auto bg-white shadow-xl print:shadow-none w-full md:w-[210mm] min-h-[297mm] overflow-hidden flex flex-col md:flex-row print:flex-row print:w-[210mm] font-sans text-gray-800">
+      <div id="printable-cv" className="mx-auto bg-white shadow-xl print:shadow-none w-[210mm] min-h-[297mm] overflow-hidden flex flex-col print:w-full font-sans text-gray-800">
 
         {/* Header */}
-        <header className="bg-slate-900 text-white p-6 md:p-8 pb-10 print:bg-slate-900 print:text-white md:col-span-2 print:col-span-2 w-full">
-          <div className="flex flex-col-reverse md:flex-row justify-between items-start gap-6 print:flex-row">
-            <div className="flex-1 w-full md:w-auto">
+        <header className="bg-slate-900 text-white p-8 pb-10">
+          <div className="flex justify-between items-start gap-6">
+            <div className="flex-1">
               <h1 className="text-4xl font-bold uppercase tracking-wider mb-2">Viet Tran</h1>
               <p className="text-xl text-blue-200 font-light tracking-wide mb-6">Integration Developer & Software Engineer</p>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-y-2 gap-x-6 text-sm text-slate-300 print:grid-cols-2">
+              <div className="grid grid-cols-2 gap-y-2 gap-x-6 text-sm text-slate-300">
                 <a href="mailto:it@viet.fi" className="flex items-center gap-2 hover:text-white transition-colors">
                   <Mail size={14} className="text-blue-400" /> it@viet.fi
                 </a>
@@ -107,7 +112,7 @@ const CVComponent = () => {
               </div>
             </div>
 
-            <div className="relative w-24 h-24 md:w-32 md:h-32 mb-4 md:mb-0 flex-shrink-0 border-4 border-white/10 rounded-full overflow-hidden self-center md:self-start print:w-32 print:h-32">
+            <div className="relative w-32 h-32 flex-shrink-0 border-4 border-white/10 rounded-full overflow-hidden">
               <Image
                 src="/viet-2026.png"
                 alt="Viet Tran"
@@ -120,9 +125,9 @@ const CVComponent = () => {
         </header>
 
         {/* content */}
-        <div className="flex flex-col md:flex-row print:flex-row flex-1">
+        <div className="flex flex-1">
           {/* Left Column (Skills, Ed) */}
-          <aside className="w-full md:w-[30%] print:w-[30%] bg-slate-50 p-6 border-b md:border-b-0 md:border-r border-slate-100 print:bg-slate-50 print:border-r print:border-slate-200">
+          <aside className="w-[30%] bg-slate-50 p-6 border-r border-slate-100 print:bg-slate-50 print:border-slate-200">
             {/* Skills */}
             <section className="mb-8 print-break-inside-avoid">
               <h3 className="text-sm font-bold uppercase tracking-widest text-slate-900 border-b-2 border-slate-200 pb-2 mb-4">Core Skills</h3>
@@ -168,11 +173,18 @@ const CVComponent = () => {
               <h3 className="text-sm font-bold uppercase tracking-widest text-slate-900 border-b-2 border-slate-200 pb-2 mb-4">Personal Projects</h3>
               <div className="space-y-4">
                 {projects.filter(p => ['telegram-gemini-chatbot', 'ai-fitness-coach', 'XML-transform-tool', 'tower-defence-game'].includes(p.slug)).map((proj, i) => (
-                  <div key={i} className="bg-white p-3 rounded border border-slate-200 shadow-sm print:border-slate-300">
+                  <div key={i} className="bg-white p-3 rounded border border-slate-200 shadow-sm print:border-slate-300 print-break-inside-avoid">
                     <h4 className="text-xs font-bold text-slate-800 mb-1 leading-tight">{proj.title}</h4>
-                    <a href={proj.githubLink} target="_blank" rel="noopener noreferrer" className="text-xs text-blue-600 hover:underline break-all block">
-                      {proj.githubLink}
-                    </a>
+                    {proj.githubLink && (
+                      <a
+                        href={proj.githubLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[10px] text-blue-600 hover:underline break-all block"
+                      >
+                        {proj.githubLink.replace('https://', '')}
+                      </a>
+                    )}
                   </div>
                 ))}
               </div>
@@ -180,7 +192,7 @@ const CVComponent = () => {
           </aside>
 
           {/* Right Column (Exp, Projects) */}
-          <main className="flex-1 p-6 md:p-8">
+          <main className="flex-1 p-8">
             <section className="mb-8 print-break-inside-avoid">
               <h2 className="text-2xl font-bold text-slate-800 mb-2">Professional Summary</h2>
               <p className="text-sm text-slate-600 leading-relaxed text-justify">
@@ -196,9 +208,9 @@ const CVComponent = () => {
               <div className="space-y-6">
                 {experienceData.map((exp, i) => (
                   <div key={i} className="print-break-inside-avoid">
-                    <div className="flex flex-col md:flex-row md:justify-between md:items-baseline mb-1 print:flex-row print:justify-between print:items-baseline">
+                    <div className="flex justify-between items-baseline mb-1">
                       <h4 className="text-lg font-bold text-slate-800">{exp.title}</h4>
-                      <span className="text-xs font-semibold text-blue-700 bg-blue-50 px-2 py-0.5 rounded w-fit mt-1 md:mt-0 print:mt-0">{exp.period}</span>
+                      <span className="text-xs font-semibold text-blue-700 bg-blue-50 px-2 py-0.5 rounded">{exp.period}</span>
                     </div>
                     <div className="text-sm font-medium text-slate-700 mb-2">{exp.company}</div>
                     <ul className="text-sm text-slate-600 space-y-1.5 list-disc list-outside ml-4">
