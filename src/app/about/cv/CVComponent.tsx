@@ -170,7 +170,9 @@ const CVComponent = () => {
                 {projects.filter(p => ['telegram-gemini-chatbot', 'ai-fitness-coach', 'XML-transform-tool', 'tower-defence-game'].includes(p.slug)).map((proj, i) => (
                   <div key={i} className="bg-white p-3 rounded border border-slate-200 shadow-sm print:border-slate-300">
                     <h4 className="text-xs font-bold text-slate-800 mb-1 leading-tight">{proj.title}</h4>
-                    <p className="text-xs text-slate-600 line-clamp-3 leading-relaxed">{proj.description}</p>
+                    <a href={proj.githubLink} target="_blank" rel="noopener noreferrer" className="text-xs text-blue-600 hover:underline break-all block">
+                      {proj.githubLink}
+                    </a>
                   </div>
                 ))}
               </div>
