@@ -13,6 +13,7 @@ const CVComponent = () => {
 
   const handleDownloadPDF = () => {
     setIsGeneratingPDF(true);
+    // Short timeout to ensure state updates if needed, though mostly for UI feedback
     setTimeout(() => {
       window.print();
       setIsGeneratingPDF(false);
@@ -28,11 +29,36 @@ const CVComponent = () => {
             margin: 0;
             size: A4;
           }
-          body {
-            background: white;
-            -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
+          /* Hide everything by default */
+          body * {
+            visibility: hidden;
           }
+          /* Show only the printable CV and its children */
+          #printable-cv, #printable-cv * {
+            visibility: visible;
+          }
+          /* Position the CV content at the top-left */
+          #printable-cv {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0;
+            padding: 0;
+            background: white;
+            box-shadow: none;
+          }
+          
+          /* Reset root styles that might interfere */
+          html, body {
+            background: white !important;
+            height: auto !important;
+            overflow: visible !important;
+            padding: 0 !important;
+            margin: 0 !important;
+          }
+          
           .no-print {
             display: none !important;
           }
@@ -56,7 +82,7 @@ const CVComponent = () => {
       </div>
 
       {/* A4 Page Container */}
-      <div className="mx-auto bg-white shadow-xl print:shadow-none w-[210mm] min-h-[297mm] overflow-hidden flex flex-col print:w-full font-sans text-gray-800">
+      <div id="printable-cv" className="mx-auto bg-white shadow-xl print:shadow-none w-[210mm] min-h-[297mm] overflow-hidden flex flex-col print:w-full font-sans text-gray-800">
 
         {/* Header */}
         <header className="bg-slate-900 text-white p-8 pb-10 print:bg-slate-900 print:text-white">
@@ -130,12 +156,24 @@ const CVComponent = () => {
               </div>
             </section>
 
-            <section className="mb-8 print-break-inside-avoid">
+            <section className="mb-0 print-break-inside-avoid">
               <h3 className="text-sm font-bold uppercase tracking-widest text-slate-900 border-b-2 border-slate-200 pb-2 mb-4">Languages</h3>
               <ul className="text-sm space-y-1 text-slate-700">
                 <li className="flex justify-between"><span>English</span> <span className="text-slate-500">Professional</span></li>
                 <li className="flex justify-between"><span>Finnish</span> <span className="text-slate-500">Native</span></li>
               </ul>
+            </section>
+
+            <section className="mt-8 print-break-inside-avoid">
+              <h3 className="text-sm font-bold uppercase tracking-widest text-slate-900 border-b-2 border-slate-200 pb-2 mb-4">Personal Projects</h3>
+              <div className="space-y-4">
+                {projects.filter(p => ['telegram-gemini-chatbot', 'ai-fitness-coach', 'XML-transform-tool', 'tower-defence-game'].includes(p.slug)).map((proj, i) => (
+                  <div key={i} className="bg-white p-3 rounded border border-slate-200 shadow-sm print:border-slate-300">
+                    <h4 className="text-xs font-bold text-slate-800 mb-1 leading-tight">{proj.title}</h4>
+                    <p className="text-xs text-slate-600 line-clamp-3 leading-relaxed">{proj.description}</p>
+                  </div>
+                ))}
+              </div>
             </section>
           </aside>
 
@@ -171,17 +209,7 @@ const CVComponent = () => {
               </div>
             </section>
 
-            <section className="print-break-inside-avoid">
-              <h3 className="text-sm font-bold uppercase tracking-widest text-slate-900 border-b-2 border-slate-200 pb-2 mb-5">Selected Projects</h3>
-              <div className="grid grid-cols-2 gap-4">
-                {projects.slice(0, 4).map((proj, i) => (
-                  <div key={i} className="bg-slate-50 p-3 rounded border border-slate-100">
-                    <h4 className="text-sm font-bold text-slate-800 mb-1 truncate">{proj.title}</h4>
-                    <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">{proj.description}</p>
-                  </div>
-                ))}
-              </div>
-            </section>
+
           </main>
         </div>
       </div>
