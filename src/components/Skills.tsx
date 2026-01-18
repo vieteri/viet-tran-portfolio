@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Code, Database, Server, Cpu, Layers, Terminal } from 'lucide-react';
+import { skillsData } from '@/data/skills';
 
 const SkillCard = ({
   title,
@@ -45,42 +45,9 @@ const SkillCard = ({
 );
 
 const Skills = () => {
-  const skillCategories = [
-    {
-      title: "Integration",
-      icon: Layers,
-      skills: ["Frends iPaaS", "API Development", "D365 F&O", "Business Central", "SAP", "SOAP/REST"]
-    },
-    {
-      title: "Backend & Languages",
-      icon: Server,
-      skills: ["C#", ".NET", "Python", "Node.js", "TypeScript", "C++"]
-    },
-    {
-      title: "Database",
-      icon: Database,
-      skills: ["SQL Server", "PostgreSQL", "T-SQL", "MariaDB", "Data Modeling"]
-    },
-    {
-      title: "Web & Frontend",
-      icon: Code,
-      skills: ["React", "Next.js", "Tailwind CSS", "JavaScript", "HTML/CSS"]
-    },
-    {
-      title: "AI & Data",
-      icon: Cpu,
-      skills: ["Gemini API", "RAG", "Prompt Engineering", "ETL Processes"]
-    },
-    {
-      title: "DevOps & Tools",
-      icon: Terminal,
-      skills: ["Git", "Docker", "Azure", "Linux/Bash", "PowerShell"]
-    }
-  ];
-
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      {skillCategories.map((category, index) => (
+      {skillsData.map((category, index) => (
         <SkillCard
           key={index}
           title={category.title}
