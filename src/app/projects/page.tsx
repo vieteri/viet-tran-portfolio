@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
+import { ArrowUpRight } from 'lucide-react';
 import ProjectCard from '@/components/ProjectCard';
+import ContactBlock from '@/components/ContactBlock';
 import { projects, featuredProjects } from '@/data/projectsData';
 
 export const metadata: Metadata = {
@@ -10,12 +13,13 @@ export const metadata: Metadata = {
 
 export default function Projects() {
   return (
-    <div className="mx-auto max-w-7xl px-6 py-20">
-      <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-teal-300">Portfolio</p>
-      <h1 className="text-4xl font-semibold tracking-tight text-white sm:text-6xl">Client work & published products.</h1>
-      <p className="mt-6 max-w-3xl text-lg leading-relaxed text-gray-300">A live business website and two independent App Store apps. Earlier experiments and developer tools are collected below.</p>
-      <section aria-labelledby="selected-work" className="mt-14"><h2 id="selected-work" className="mb-7 text-2xl font-semibold text-white">Selected work</h2><div className="grid gap-6 md:grid-cols-3">{featuredProjects.map((project) => <ProjectCard key={project.slug} project={project} />)}</div></section>
-      <section aria-labelledby="earlier-work" className="mt-20"><h2 id="earlier-work" className="mb-7 text-2xl font-semibold text-white">Tools & earlier projects</h2><div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">{projects.filter((project) => !project.featured).map((project) => <ProjectCard key={project.slug} project={project} />)}</div></section>
-    </div>
+    <>
+      <div className="shell"><header className="page-opening"><h1 className="display">Built to be<br /><em>used.</em></h1><p className="lead">A client website, independent apps and the tools I have built along the way.</p></header>
+        <section aria-labelledby="selected-work" className="work-section"><h2 id="selected-work" className="sr-only">Selected work</h2><div className="work-gallery">{featuredProjects.map((project) => <ProjectCard key={project.slug} project={project} />)}</div>
+          <section className="archive-section" aria-labelledby="earlier-work"><h2 id="earlier-work" className="section-title">Tools & earlier explorations.</h2><div className="archive-list">{projects.filter((project) => !project.featured).map((project) => <Link key={project.slug} href={`/projects/${project.slug}`} className="archive-row"><div><h3>{project.title}</h3><small>{project.category}</small></div><p>{project.description}</p><ArrowUpRight size={22} aria-hidden="true" /></Link>)}</div></section>
+        </section>
+      </div>
+      <ContactBlock />
+    </>
   );
 }

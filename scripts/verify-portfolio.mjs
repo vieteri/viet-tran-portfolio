@@ -4,8 +4,8 @@ import { spawn } from 'node:child_process';
 import { setTimeout as delay } from 'node:timers/promises';
 import { chromium } from '@playwright/test';
 
-// Uses the built production app, or an explicitly supplied public preview.
-// Never changes deployment settings or bypasses authentication.
+// Tests the built app or an explicitly supplied accessible preview.
+// This script never changes deployment protection or authentication.
 const baseURL = process.env.PORTFOLIO_BASE_URL || 'http://127.0.0.1:3000';
 const output = 'test-results/portfolio';
 await mkdir(output, { recursive: true });
@@ -39,8 +39,19 @@ try {
     const dimensions = await page.evaluate(() => ({ viewport: innerWidth, width: document.documentElement.scrollWidth }));
     assert(dimensions.width <= dimensions.viewport + 1, `Horizontal overflow at ${route}, ${width}px: ${JSON.stringify(dimensions)}`);
   };
+  const loadImages = async () => {
+    // Full-page screenshots do not automatically trigger below-fold lazy images.
+    // Promote loading only inside the test, then verify the actual assets decoded.
+    const failures = await page.locator('main img').evaluateAll(async (images) => {
+      images.forEach((image) => { image.loading = 'eager'; });
+      return (await Promise.all(images.map(async (image) => {
+        try { await image.decode(); } catch { return image.getAttribute('src'); }
+        return image.naturalWidth > 0 ? null : image.getAttribute('src');
+      }))).filter(Boolean);
+    });
+    assert.deepEqual(failures, [], 'All portfolio image assets must load');
+  };
 
-  // Export the actual Next.js CV first, so PDF artifacts survive later failures.
   await go('/about/cv');
   await page.emulateMedia({ media: 'print' });
   for (const width of [1440, 390]) {
@@ -74,7 +85,6 @@ try {
     const expectedCanonical = new URL(route, 'https://viet.fi').href;
     const canonical = await page.locator('link[rel="canonical"]').getAttribute('href');
     assert(canonical, `Canonical link missing: ${route}`);
-    // URL parsing normalizes an origin with or without its optional trailing slash.
     assert.equal(new URL(canonical).href, expectedCanonical, `Canonical URL: ${route}`);
     assert.equal(await page.locator('a[href*="viettran.dev"]').count(), 0, `No stale domain links: ${route}`);
     for (const width of [320, 390, 768, 1440]) {
@@ -82,11 +92,46 @@ try {
       await noOverflow(route, width);
     }
     const name = route === '/' ? 'home' : route.slice(1).replaceAll('/', '-');
+    await loadImages();
+    await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
     await page.screenshot({ path: `${output}/${name}-desktop.png`, fullPage: true });
     await page.setViewportSize({ width: 390, height: 844 });
+    await loadImages();
     await page.screenshot({ path: `${output}/${name}-mobile.png`, fullPage: true });
+    if (route === '/') {
+      await page.setViewportSize({ width: 768, height: 1024 });
+      await loadImages();
+      await page.screenshot({ path: `${output}/${name}-tablet.png`, fullPage: true });
+      assert.equal(await page.locator('.hero-visual').evaluate((element) => getComputedStyle(element).animationName), 'none', 'Reduced motion disables the montage entrance');
+      const contrast = await page.evaluate(() => {
+        const canvas = document.createElement('canvas');
+        canvas.width = canvas.height = 1;
+        const context = canvas.getContext('2d', { willReadFrequently: true });
+        if (!context) throw new Error('Canvas unavailable for sRGB contrast measurement');
+        const rgb = (color) => { context.clearRect(0, 0, 1, 1); context.fillStyle = color; context.fillRect(0, 0, 1, 1); return [...context.getImageData(0, 0, 1, 1).data].slice(0, 3); };
+        const luminance = (color) => rgb(color).map((channel) => channel / 255).map((channel) => channel <= .04045 ? channel / 12.92 : ((channel + .055) / 1.055) ** 2.4).reduce((sum, channel, index) => sum + channel * [.2126, .7152, .0722][index], 0);
+        const tokens = getComputedStyle(document.documentElement);
+        const pairs = [['--ink', '--paper'], ['--muted', '--paper'], ['--muted', '--canvas'], ['--accent', '--paper'], ['--accent', '--canvas'], ['--paper', '--accent']];
+        const checks = pairs.map(([fg, bg]) => {
+          const a = luminance(tokens.getPropertyValue(fg).trim());
+          const b = luminance(tokens.getPropertyValue(bg).trim());
+          return { pair: `${fg} on ${bg}`, ratio: (Math.max(a, b) + .05) / (Math.min(a, b) + .05) };
+        });
+        const contact = document.querySelector('.contact-block');
+        const paragraph = contact?.querySelector('p');
+        if (contact && paragraph) {
+          const a = luminance(getComputedStyle(paragraph).color);
+          const b = luminance(getComputedStyle(contact).backgroundColor);
+          checks.push({ pair: 'Contact section paragraph', ratio: (Math.max(a, b) + .05) / (Math.min(a, b) + .05) });
+        }
+        return checks;
+      });
+      await writeFile(`${output}/contrast.json`, JSON.stringify(contrast, null, 2));
+      for (const check of contrast) assert(check.ratio >= 4.5, `${check.pair}: contrast ${check.ratio.toFixed(2)} must be at least 4.5`);
+      record('All seven text/background contrast pairs meet 4.5:1; reduced motion works');
+    }
     await page.setViewportSize({ width: 1440, height: 1000 });
-    record(`Route, content, canonical and four viewport widths OK: ${route}`);
+    record(`Route, content, canonical, loaded images and four viewport widths OK: ${route}`);
   }
   await go('/');
   await page.getByRole('navigation', { name: 'Main navigation' }).getByRole('link', { name: 'Consulting', exact: true }).filter({ visible: true }).click();
@@ -105,6 +150,7 @@ try {
   for (const slug of ['tm-beauty', 'kovafit', 'dartscope', 'telegram-gemini-chatbot', 'ai-fitness-coach', 'XML-transform-tool', 'tower-defence-game', 'deno-app', 'old-portfolio-page']) {
     await go(`/projects/${slug}`);
     assert.equal(await page.locator('h1').count(), 1);
+    if (['tm-beauty', 'kovafit', 'dartscope'].includes(slug)) await loadImages();
   }
   await go('/projects/not-a-real-project', 404);
   await go('/cv');

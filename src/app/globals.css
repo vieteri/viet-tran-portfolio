@@ -2,53 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-
-  body {
-    @apply bg-gray-900 text-white;
-  }
-
-  *:focus-visible {
-    @apply outline-none ring-2 ring-primary-500 ring-offset-2 ring-offset-gray-900;
-  }
-
-  html {
-    scroll-behavior: smooth;
-  }
+:root {
+  --paper: oklch(97.2% 0.011 230);
+  --canvas: oklch(93% 0.022 230);
+  --ink: oklch(27% 0.034 238);
+  --muted: oklch(46% 0.028 238);
+  --line: oklch(80% 0.021 230);
+  --accent: oklch(46% 0.14 32);
+  --accent-hover: oklch(37% 0.11 32);
+  --ease: cubic-bezier(.22, 1, .36, 1);
+  --nav-layer: 30;
+  color-scheme: light;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-}
-
-.inline-code {
-  background-color: #1f2937;
-  color: #60a5fa;
-  padding: 0.2em 0.4em;
-  border-radius: 0.25rem;
-  font-family: monospace;
-  font-size: 0.875em;
-}
-
-.block-code {
-  background-color: #111827;
-  color: #f3f4f6;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  font-family: monospace;
-  overflow-x: auto;
-  border: 1px solid #374151;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-}
-
-/* CV printing is scoped to /about/cv/cv.css. Do not hide body descendants
-   globally: that can produce an apparently one-page but empty PDF. */
+html { scroll-behavior: smooth; scroll-padding-top: 110px; scrollbar-color: var(--muted) var(--paper); }
+body { margin: 0; background: var(--paper); color: var(--ink); }
+* { box-sizing: border-box; }
+::selection { background: var(--ink); color: var(--paper); }
+a { text-underline-offset: .22em; }
+button, input, textarea { font: inherit; }
+input, textarea { caret-color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+.inline-code { background: var(--canvas); color: var(--ink); padding: .2em .4em; border-radius: 3px; font-family: monospace; font-size: .875em; }
+.block-code { background: var(--ink); color: var(--paper); padding: 1rem; border-radius: 6px; overflow-x: auto; font-family: monospace; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+/* Print rules live in about/cv/cv.css, never hide document content globally. */
