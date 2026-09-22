@@ -1,290 +1,34 @@
-'use client';
+import type { Metadata } from 'next';
+import Image from 'next/image';
+import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
+import { profile, integrationLabel } from '@/data/profile';
+import { experienceData } from '@/data/experience';
+import { educationData } from '@/data/education';
+import { cvSkills } from '@/data/cv';
 
-import Image from "next/image";
-import Link from "next/link";
-
-import { SectionProps, ListItemProps, ContactLinkProps } from "@/app/interfaces";
-import { FileText } from 'lucide-react';
-import Head from 'next/head';
-
-const Section = ({ title, children }: SectionProps) => (
-  <div className="mb-16">
-    <h2 className="text-3xl font-bold text-white mb-6 relative">
-      {title}
-      <div className="absolute bottom-0 left-0 w-16 h-1 bg-gradient-to-r from-blue-600 to-purple-400 mt-2"></div>
-    </h2>
-    <div className="text-gray-300 bg-gray-800/30 rounded-xl p-8 border border-gray-700">{children}</div>
-  </div>
-);
-
-const ListItem = ({ title, description }: ListItemProps) => (
-  <li className="mb-4">
-    <h3 className="font-semibold text-white">{title}</h3>
-    <p className="text-sm text-gray-400">{description}</p>
-  </li>
-);
-
-const ContactLink: React.FC<ContactLinkProps> = ({ href, text, children }) => (
-  <a
-    href={href}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="text-blue-400 hover:text-blue-300 transition-colors"
-  >
-    {children || text}
-  </a>
-);
+export const metadata: Metadata = {
+  title: 'About Viet Tran | Software Engineer & Integration Consultant',
+  description: 'Software engineering experience across banking, ERP integrations, industrial systems and published mobile products.',
+  alternates: { canonical: '/about' },
+};
 
 export default function About() {
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
-      <div className="max-w-4xl mx-auto p-6">
-      <Head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Person",
-            "name": "Viet Tran",
-            "jobTitle": "Integration Developer",
-            "email": "it@viet.fi",
-
-            "address": {
-              "@type": "PostalAddress",
-              "addressLocality": "Helsinki",
-              "addressCountry": "FI"
-            },
-            "url": "https://viettran.dev",
-            "knowsAbout": [
-              "API Management",
-              "ERP Integration",
-              "D365 Integrations",
-              "SQL",
-              "SAP",
-              "Python",
-              "TypeScript",
-              "JavaScript",
-              "C#",
-              "C++"
-            ],
-            "worksFor": {
-              "@type": "Organization",
-              "name": "Frends Oy",
-              "startDate": "2024-01"
-            },
-            "alumniOf": {
-              "@type": "CollegeOrUniversity",
-              "name": "Aalto University",
-              "areaServed": "Helsinki"
-            }
-          }) }}
-        />
-      </Head>
-      {/* Hero Section */}
-      <div className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20"></div>
-        <div className="relative max-w-6xl mx-auto px-6 py-20">
-          <div className="text-center">
-            <div className="relative w-48 h-48 mx-auto mb-8 rounded-full overflow-hidden border-4 border-white/20 shadow-2xl">
-              <Image
-                src="/viet.png"
-                alt="Viet Tran"
-                width={200}
-                height={200}
-                className="transition-transform duration-300 transform hover:scale-110"
-              />
-            </div>
-            <h1 className="text-5xl md:text-6xl font-bold text-white mb-4">
-              About <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Me</span>
-            </h1>
-            <p className="text-2xl text-gray-300 mb-6">Integration Developer & Software Engineer</p>
-            <Link
-              href="/about/cv"
-              className="inline-flex items-center px-8 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 shadow-lg"
-            >
-              <FileText className="w-5 h-5 mr-2" />
-              View Professional CV
-            </Link>
-          </div>
+    <div className="mx-auto max-w-7xl px-6 py-20">
+      <section className="grid items-center gap-10 md:grid-cols-[1fr_240px]">
+        <div>
+          <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-teal-300">Background</p>
+          <h1 className="text-4xl font-semibold tracking-tight text-white sm:text-6xl">About Viet Tran.</h1>
+          <p className="mt-6 max-w-3xl text-lg leading-relaxed text-gray-300">I am a software engineer and integration consultant based in Helsinki. I have delivered <strong className="text-white">{integrationLabel}</strong> across my career, working with banking systems, ERP platforms and industrial software.</p>
+          <p className="mt-4 max-w-3xl leading-relaxed text-gray-300">Alongside enterprise work, I build business websites and mobile products. TM Beauty, KovaFit and DartScope show that work in practice.</p>
+          <Link href="/about/cv" className="mt-7 inline-flex items-center gap-2 rounded-lg bg-teal-300 px-5 py-3 font-semibold text-gray-950 hover:bg-teal-200">View one-page CV<ArrowRight size={18} aria-hidden="true" /></Link>
         </div>
-      </div>
-
-      {/* Content Sections */}
-      <section className="py-20 px-6">
-        <div className="max-w-4xl mx-auto">
-
-      <Section title="Professional Background">
-        <p className="mb-4">
-          I am a passionate software developer with a Master&apos;s degree in Electrical Engineering from Aalto University. 
-          My expertise lies in solving complex integration challenges, with a particular focus on API management and enterprise systems.
-        </p>
-        <p className="mb-4">
-          I believe that happiness and positivity are contagious, and I strive to bring that energy to both my work environment 
-          and my interactions with colleagues and clients. I enjoy working in collaborative environments where I can contribute my 
-          skills while learning from others.
-        </p>
-        <p className="mb-4">
-          Recently, I&apos;ve been expanding my knowledge in concept development and service design, combining technical expertise 
-          with user-centered design approaches to create innovative solutions. This allows me to bridge the gap between technology and 
-          human needs.
-        </p>
-      </Section>
-
-
-      <Section title="Work History">
-        <ul className="list-none">
-          <ListItem 
-            title="Integration Developer @ Frends Enterprise iPaaS (2024-present)"
-            description="API management, ERP integration, D365 integrations, SQL, SAP, Working in multiorganizational projects"
-          />
-          <ListItem 
-            title="Software Engineer @ Softsys Oy (2021-2024)"
-            description="Developing WMSs for food-based and industrial warehouses, Database administration and bash/powershell scripting"
-          />
-          <ListItem 
-            title="Aalto Junior Teaching Assistant @ Aalto University (2018-2019)"
-            description="Teaching programming and embedded systems to students from primary to high school level"
-          />
-          <ListItem 
-            title="Course Assistant @ Aalto University (2016-2017)"
-            description="Assisting and grading for C-programming course"
-          />
-        </ul>
-      </Section>
-
-      <Section title="Education">
-        <ul className="list-none">
-          <ListItem 
-            title="Master's degree in Automation and Electrical Engineering"
-            description="Aalto University, School of Electrical Engineering. Major: Translational Engineering, Smart Buildings"
-          />
-          <ListItem 
-            title="Bachelor's degree in Electrical Engineering"
-            description="Aalto University, School of Electrical Engineering. Major: Automation, Minor: Computer Science"
-          />
-        </ul>
-      </Section>
-
-      <Section title="Technical Skills">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="bg-gray-700/30 rounded-lg p-6">
-            <h3 className="font-semibold mb-4 text-blue-400 text-lg">Integration Development</h3>
-            <ul className="space-y-2 text-gray-300">
-              <li className="flex items-center">
-                <span className="text-blue-400 mr-3">▸</span>
-                ERP, CRM, WMS integration
-              </li>
-              <li className="flex items-center">
-                <span className="text-blue-400 mr-3">▸</span>
-                SAP integration
-              </li>
-              <li className="flex items-center">
-                <span className="text-blue-400 mr-3">▸</span>
-                SOAP and API development
-              </li>
-            </ul>
-          </div>
-          <div className="bg-gray-700/30 rounded-lg p-6">
-            <h3 className="font-semibold mb-4 text-green-400 text-lg">Programming</h3>
-            <ul className="space-y-2 text-gray-300">
-              <li className="flex items-center">
-                <span className="text-green-400 mr-3">▸</span>
-                Python (Proficient)
-              </li>
-              <li className="flex items-center">
-                <span className="text-green-400 mr-3">▸</span>
-                SQL (Advanced)
-              </li>
-              <li className="flex items-center">
-                <span className="text-green-400 mr-3">▸</span>
-                C#, TypeScript, JavaScript
-              </li>
-              <li className="flex items-center">
-                <span className="text-green-400 mr-3">▸</span>
-                C++ (Basic)
-              </li>
-            </ul>
-          </div>
-          <div className="bg-gray-700/30 rounded-lg p-6">
-            <h3 className="font-semibold mb-4 text-purple-400 text-lg">AI/ML & Modern Web</h3>
-            <ul className="space-y-2 text-gray-300">
-              <li className="flex items-center">
-                <span className="text-purple-400 mr-3">▸</span>
-                Gemini AI API Integration
-              </li>
-              <li className="flex items-center">
-                <span className="text-purple-400 mr-3">▸</span>
-                RAG Implementation
-              </li>
-              <li className="flex items-center">
-                <span className="text-purple-400 mr-3">▸</span>
-                Next.js & React Development
-              </li>
-              <li className="flex items-center">
-                <span className="text-purple-400 mr-3">▸</span>
-                Web Speech API
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div className="mt-8 p-6 bg-gradient-to-r from-blue-600/10 to-purple-600/10 rounded-lg border border-gray-600">
-          <p className="text-gray-300">
-            <strong className="text-white">Additional expertise:</strong> Database Management (MS SQL, MariaDB), Industrial-grade automation solutions, Project management, Bug fixing
-          </p>
-        </div>
-      </Section>
-
-      <Section title="Personal Projects">
-        <ListItem 
-          title="Telegram Gemini 2.5 Flash Chatbot"
-          description="Powerful Telegram chatbot powered by Google's Gemini 2.5 Flash with real-time internet search capabilities. Features automatic search detection, conversation memory, HTML formatting, and serverless webhook architecture. Built with Node.js and deployed on Vercel."
-        />
-        <ListItem 
-          title="AI Fitness Coach Application (fit.viet.fi)"
-          description="AI-powered fitness coaching web application with voice interaction capabilities. Built with Next.js 15, Gemini 2.0 Flash API, RAG implementation, and TTS functionality. Deployed on Vercel with Supabase integration."
-        />
-      </Section>
-
-      <Section title="Project Management">
-        <ul className="list-disc pl-5 text-gray-300">
-          <li>Event management for large-scale events (5000+ attendees)</li>
-          <li>Student association annual ball organization</li>
-          <li>Volunteer workforce management</li>
-          <li>Academic course assistance and grading</li>
-        </ul>
-      </Section>
-
-      <Section title="Contact Me">
-        <p className="mb-4">
-        I&apos;m always eager to connect with fellow developers, explore new technologies, 
-        and discuss the latest in technology trends. Feel free to reach out for collaborations, 
-        insightful discussions, or simply to connect. You can find me on the following platforms:
-        </p>
-        <ul className="space-y-4">
-          <li className="flex items-center">
-            <svg className="w-6 h-6 mr-2 text-blue-400" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-            </svg>
-            {" "}
-            <ContactLink href="https://www.linkedin.com/in/viet-tran-a9a492a8/">
-              Viet Tran
-            </ContactLink>
-          </li>
-          <li className="flex items-center">
-            <svg className="w-6 h-6 mr-2 text-blue-400" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M0 3v18h24v-18h-24zm6.623 7.929l-4.623 5.712v-9.458l4.623 3.746zm-4.141-5.929h19.035l-9.517 7.713-9.518-7.713zm5.694 7.188l3.824 3.099 3.83-3.104 5.612 6.817h-18.779l5.513-6.812zm9.208-1.264l4.616-3.741v9.348l-4.616-5.607z"/>
-            </svg>
-            {" "}
-            <ContactLink href="mailto:it@viet.fi">
-              it@viet.fi
-            </ContactLink>
-          </li>
-        </ul>
-      </Section>
-        </div>
+        <Image src="/viet-2026.png" alt="Viet Tran" width={240} height={240} sizes="240px" priority className="rounded-2xl object-cover" />
       </section>
-      </div>
+      <section className="mt-16" aria-labelledby="work-history"><h2 id="work-history" className="text-3xl font-semibold text-white">Work history</h2><div className="mt-8 grid gap-6 md:grid-cols-2">{experienceData.map((experience) => <article key={experience.company} className="rounded-2xl border border-gray-700 bg-gray-800/30 p-7"><p className="text-sm text-gray-400">{experience.period}</p><h3 className="mt-3 text-xl font-semibold text-white">{experience.company}</h3><p className="mt-1 font-medium text-teal-300">{experience.title}</p><ul className="mt-5 list-disc space-y-2 pl-5 text-gray-300">{experience.description.map((description) => <li key={description} className="leading-relaxed">{description}</li>)}</ul></article>)}</div></section>
+      <div className="mt-16 grid gap-12 md:grid-cols-2"><section aria-labelledby="education"><h2 id="education" className="text-3xl font-semibold text-white">Education</h2>{educationData.map((education) => <div key={education.degree} className="mt-6 border-b border-gray-700 pb-6"><h3 className="text-lg font-semibold text-white">{education.degree}</h3><p className="mt-2 text-teal-300">{education.school} · {education.year}</p><p className="mt-2 leading-relaxed text-gray-300">{education.description}</p></div>)}</section><section aria-labelledby="technical-focus"><h2 id="technical-focus" className="text-3xl font-semibold text-white">Technical focus</h2>{cvSkills.map((skill) => <div key={skill.title} className="mt-6"><h3 className="font-semibold text-white">{skill.title}</h3><p className="mt-2 leading-relaxed text-gray-300">{skill.text}</p></div>)}</section></div>
+      <section className="mt-16 border-t border-gray-700 pt-10"><h2 className="text-3xl font-semibold text-white">Work together</h2><p className="mt-4 leading-relaxed text-gray-300">For a focused integration, an API or a digital product, send me the problem and the result you need.</p><div className="mt-6 flex flex-wrap gap-6"><a href={`mailto:${profile.email}`} className="font-medium text-teal-300 hover:text-teal-200">{profile.email}</a><Link href="/consulting" className="inline-flex items-center gap-2 font-medium text-teal-300">Consulting services<ArrowRight size={17} aria-hidden="true" /></Link><Link href="/projects" className="font-medium text-teal-300">Selected work</Link></div></section>
     </div>
   );
 }
