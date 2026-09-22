@@ -45,7 +45,7 @@ export default function Home() {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="text-xl md:text-2xl text-gray-300 mb-8 max-w-xl leading-relaxed"
             >
-              Software Engineer specializing in <span className="text-primary-400 font-semibold">Enterprise Systems</span>, <span className="text-secondary-400 font-semibold">API Architecture</span>, and <span className="text-accent-400 font-semibold">AI Solutions</span>.
+              Software consultant and engineer helping companies build <span className="text-primary-400 font-semibold">integrations</span>, <span className="text-secondary-400 font-semibold">APIs</span>, and <span className="text-accent-400 font-semibold">digital products</span> that are reliable enough for production.
             </motion.p>
 
             <motion.div
@@ -62,14 +62,14 @@ export default function Home() {
                   document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
                 }}
               >
-                View My Work
+                See Shipped Work
                 <ArrowRight className="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
-                href="/about/cv"
+                href="/consulting"
                 className="px-8 py-4 bg-gray-800 text-gray-300 rounded-lg hover:bg-gray-700 transition-all duration-300 border border-gray-700 hover:border-primary-500/50 flex items-center font-medium"
               >
-                Download CV
+                Consulting Services
               </Link>
             </motion.div>
 
@@ -149,8 +149,7 @@ export default function Home() {
                   and managing the complete API development lifecycle. Architecting integration patterns for financial systems and leading projects from conception through testing to production deployment.
                 </p>
                 <p className="text-lg text-gray-300 leading-relaxed">
-                  Beyond traditional integration work, building <span className="text-secondary-400 font-semibold">AI-powered applications</span> leveraging
-                  LLMs and RAG architectures. Also providing selective consulting services for integration and automation projects.
+                  Alongside enterprise integration work, I design and ship complete digital products: production mobile apps, business websites and AI-enabled software. I take on selective consulting engagements where I can contribute hands-on architecture and implementation, not just slide decks.
                 </p>
               </div>
             </div>
@@ -241,15 +240,15 @@ export default function Home() {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Featured Projects</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Selected Work</h2>
             <div className="w-20 h-1 bg-accent-600 mx-auto rounded-full"></div>
             <p className="mt-4 text-gray-400 max-w-2xl mx-auto">
-              A selection of my recent work in web development, AI integration, and automation.
+              Real client work and products shipped to users. TM Beauty is a live business website, while KovaFit and DartScope are published on Apple&apos;s App Store.
             </p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project, index) => (
+            {projects.filter((project) => project.featured).map((project, index) => (
               <motion.div
                 key={project.slug}
                 initial={{ opacity: 0, y: 30 }}
@@ -287,13 +286,25 @@ export default function Home() {
                   </p>
 
                   <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-800">
-                    <Link
-                      href={`/projects/${project.slug}`}
-                      className="text-sm font-medium text-primary-400 hover:text-primary-300 flex items-center group/link"
-                    >
-                      View Case Study
-                      <ArrowRight className="w-4 h-4 ml-1 transform group-hover/link:translate-x-1 transition-transform" />
-                    </Link>
+                    {project.externalLink ? (
+                      <a
+                        href={project.externalLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm font-medium text-primary-400 hover:text-primary-300 flex items-center group/link"
+                      >
+                        {project.externalLabel || 'View project'}
+                        <ArrowRight className="w-4 h-4 ml-1 transform group-hover/link:translate-x-1 transition-transform" />
+                      </a>
+                    ) : (
+                      <Link
+                        href={`/projects/${project.slug}`}
+                        className="text-sm font-medium text-primary-400 hover:text-primary-300 flex items-center group/link"
+                      >
+                        View Case Study
+                        <ArrowRight className="w-4 h-4 ml-1 transform group-hover/link:translate-x-1 transition-transform" />
+                      </Link>
+                    )}
 
                     {project.githubLink && (
                       <a
