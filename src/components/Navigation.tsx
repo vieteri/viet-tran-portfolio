@@ -9,7 +9,8 @@ const navItems = [
   { href: '/#home', label: 'Home' },
   { href: '/#about', label: 'About' },
   { href: '/#experience', label: 'Experience' },
-  { href: '/#projects', label: 'Projects' },
+  { href: '/#projects', label: 'Work' },
+  { href: '/consulting', label: 'Consulting' },
 ];
 
 const Navigation = () => {
