@@ -1,0 +1,54 @@
+name: Refine reference media
+on:
+  push:
+    branches: ['preview/consulting-cv-2026']
+    paths: ['.github/workflows/refine-reference-media.yml']
+permissions:
+  contents: read
+jobs:
+  media:
+    if: github.ref == 'refs/heads/preview/consulting-cv-2026'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    env:
+      PUPPETEER_SKIP_DOWNLOAD: 'true'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: preview/consulting-cv-2026
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --no-audit
+      - run: |
+          node --input-type=module <<'JS'
+          import sharp from 'sharp';
+          import { readFile, writeFile } from 'node:fs/promises';
+          const sources = JSON.parse(await readFile('public/work/sources.json', 'utf8'));
+          for (const source of sources.filter(s => s.source.includes('mzstatic.com'))) {
+            const url = source.source.replace('320x480bb.jpg', '720x1560bb.jpg');
+            const response = await fetch(url, { signal: AbortSignal.timeout(20000) });
+            if (!response.ok) throw new Error(`${response.status}: ${url}`);
+            const input = Buffer.from(await response.arrayBuffer());
+            const info = await sharp(input).metadata();
+            if (info.width < 600) throw new Error('Higher resolution not supplied');
+            await sharp(input).webp({ quality: 88 }).toFile(`public/work/${source.file}`);
+            source.source = url;
+            source.width = info.width;
+            source.height = info.height;
+          }
+          const site = await readFile('public/work/tmbeauty.webp');
+          await sharp(site).extract({ left: 0, top: 0, width: 1440, height: 820 }).webp({ quality: 90 }).toFile('public/work/tmbeauty.webp');
+          await writeFile('public/work/sources.json', JSON.stringify(sources, null, 2));
+          JS
+      - name: Commit only reference images
+        run: |
+          git add public/work
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'design: use high-resolution App Store screenshots and crop website capture'
+          git push origin HEAD:refs/heads/preview/consulting-cv-2026
