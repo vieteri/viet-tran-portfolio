@@ -12,12 +12,10 @@
     @apply bg-gray-900 text-white;
   }
 
-  /* Improve focus visibility for accessibility */
   *:focus-visible {
     @apply outline-none ring-2 ring-primary-500 ring-offset-2 ring-offset-gray-900;
   }
 
-  /* Smooth scrolling */
   html {
     scroll-behavior: smooth;
   }
@@ -29,7 +27,6 @@
   }
 }
 
-/* Code styling for markdown */
 .inline-code {
   background-color: #1f2937;
   color: #60a5fa;
@@ -49,20 +46,9 @@
   border: 1px solid #374151;
 }
 
-/* Print styles for CV */
-@media print {
-  body * {
-    visibility: hidden;
-  }
-  .cv-container, .cv-container * {
-    visibility: visible;
-  }
-  .cv-container {
-    position: absolute;
-    left: 0;
-    top: 0;
-  }
-  .no-print {
-    display: none !important;
-  }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
 }
+
+/* CV printing is scoped to /about/cv/cv.css. Do not hide body descendants
+   globally: that can produce an apparently one-page but empty PDF. */
