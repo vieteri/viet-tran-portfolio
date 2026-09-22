@@ -3,10 +3,10 @@ import Image from "next/image";
 import { ProjectProps } from "@/app/interfaces";
 import { projects } from '@/data/projectsData';
 
-const ProjectItem: React.FC<ProjectProps> = ({ title, slug, description, imageSrc, imageAlt, githubLink }) => (
+const ProjectItem: React.FC<ProjectProps> = ({ title, slug, description, imageSrc, imageAlt, githubLink, externalLink, externalLabel, category }) => (
   <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl shadow-lg overflow-hidden hover:border-blue-500/50 transition-all duration-300 hover:transform hover:scale-105">
     {imageSrc && (
-      <Link href={`/projects/${slug}`} className="block relative overflow-hidden">
+      <Link href={externalLink || `/projects/${slug}`} target={externalLink ? "_blank" : undefined} rel={externalLink ? "noopener noreferrer" : undefined} className="block relative overflow-hidden">
         <Image
           src={imageSrc}
           alt={imageAlt || title}
@@ -18,18 +18,21 @@ const ProjectItem: React.FC<ProjectProps> = ({ title, slug, description, imageSr
       </Link>
     )}
     <div className="p-6">
+      {category && <p className="text-xs uppercase tracking-[0.18em] text-blue-300 font-semibold mb-3">{category}</p>}
       <h3 className="text-2xl font-semibold mb-3 text-white">
-        <Link href={`/projects/${slug}`} className="hover:text-blue-400 transition-colors">
+        <Link href={externalLink || `/projects/${slug}`} target={externalLink ? "_blank" : undefined} rel={externalLink ? "noopener noreferrer" : undefined} className="hover:text-blue-400 transition-colors">
           {title}
         </Link>
       </h3>
       <p className="text-gray-300 mb-6 line-clamp-3">{description}</p>
       <div className="flex items-center justify-between">
         <Link 
-          href={`/projects/${slug}`} 
+          href={externalLink || `/projects/${slug}`} 
+          target={externalLink ? "_blank" : undefined}
+          rel={externalLink ? "noopener noreferrer" : undefined}
           className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 text-sm"
         >
-          Read More
+          {externalLink ? (externalLabel || 'Open project') : 'Read More'}
           <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
@@ -64,8 +67,7 @@ export default function Projects() {
               My <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Projects</span>
             </h1>
             <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
-              A collection of projects showcasing my expertise in modern web development, AI integration, 
-              and enterprise solutions.
+              A mix of client work, shipped App Store products, developer tools and earlier experiments.
             </p>
           </div>
         </div>
