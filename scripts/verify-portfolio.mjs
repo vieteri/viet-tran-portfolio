@@ -36,6 +36,9 @@ try {
     return response;
   };
   const noOverflow = async (route, width) => {
+    // Chromium can report the previous scrollable area during the resize frame.
+    // Wait for responsive layout and its paint, then keep the strict 1px tolerance.
+    await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
     const dimensions = await page.evaluate(() => ({ viewport: innerWidth, width: document.documentElement.scrollWidth }));
     assert(dimensions.width <= dimensions.viewport + 1, `Horizontal overflow at ${route}, ${width}px: ${JSON.stringify(dimensions)}`);
   };
