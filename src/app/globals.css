@@ -25,5 +25,16 @@ input, textarea { caret-color: var(--accent); }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
 .inline-code { background: var(--canvas); color: var(--ink); padding: .2em .4em; border-radius: 3px; font-family: monospace; font-size: .875em; }
 .block-code { background: var(--ink); color: var(--paper); padding: 1rem; border-radius: 6px; overflow-x: auto; font-family: monospace; }
+
+/* Intrinsic-size safety: narrow grids must wrap their content, not widen the page.
+   These selectors deliberately exclude the fixed-format printable CV. */
+:where(.shell, .service-layout, .reference-layout, .reference-link, .career-role, .work-gallery) > * { min-width: 0; }
+:where(.display, .section-title, .reference-link h3) { overflow-wrap: anywhere; }
+@media (min-width: 701px) {
+  /* Keep the headline's first phrase together in the two-column composition. */
+  .site-main .hero .display { font-size: clamp(2.5rem, 5.2vw, 5rem); }
+  /* Fit the full screenshots, including the stagger, inside each image stage. */
+  .site-main .app-proof img { height: calc(100% - 24px); width: auto; max-width: calc(50% - 10px); }
+}
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 /* Print rules live in about/cv/cv.css, never hide document content globally. */
