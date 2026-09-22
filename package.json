@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint src",
+    "typecheck": "tsc --noEmit",
+    "test:portfolio": "node scripts/verify-portfolio.mjs"
   },
   "dependencies": {
     "docx": "^9.5.1",

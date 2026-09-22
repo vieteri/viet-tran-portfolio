@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import type { ReactNode } from 'react';
 
 export interface SectionProps {
   title: string;
@@ -11,19 +11,22 @@ export interface ListItemProps {
 }
 
 export interface ContactLinkProps {
-    href: string;
-    text?: string;
-    children?: React.ReactNode;
-  }
+  href: string;
+  text?: string;
+  children?: ReactNode;
+}
 
-
-  export interface ProjectProps {
-    title: string;
-    slug: string;
-    description: string;
-    imageSrc: string;
-    imageAlt: string;
-    readme: string;
-    githubLink: string;
-  }
-  
+export interface ProjectProps {
+  title: string;
+  slug: string;
+  description: string;
+  imageSrc?: string | null;
+  imageAlt?: string;
+  readme?: string;
+  githubLink?: string;
+  externalLink?: string;
+  externalLabel?: string;
+  featured?: boolean;
+  category?: string;
+  cvSummary?: string;
+}

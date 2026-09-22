@@ -1,0 +1,174 @@
+import assert from 'node:assert/strict';
+import { mkdir, writeFile } from 'node:fs/promises';
+import { spawn } from 'node:child_process';
+import { setTimeout as delay } from 'node:timers/promises';
+import { chromium } from '@playwright/test';
+
+// Tests the built app or an explicitly supplied accessible preview.
+// This script never changes deployment protection or authentication.
+const baseURL = process.env.PORTFOLIO_BASE_URL || 'http://127.0.0.1:3000';
+const output = 'test-results/portfolio';
+await mkdir(output, { recursive: true });
+const server = process.env.PORTFOLIO_BASE_URL ? null : spawn(process.execPath, ['node_modules/next/dist/bin/next', 'start', '-H', '127.0.0.1'], { stdio: 'inherit' });
+let browser;
+let page;
+const results = [];
+const record = (message) => { results.push(message); console.log(message); };
+try {
+  let ready = false;
+  for (let attempt = 0; attempt < 90; attempt++) {
+    try {
+      const response = await fetch(baseURL, { signal: AbortSignal.timeout(5000) });
+      if (response.ok) { ready = true; break; }
+    } catch { /* Wait for the local server. */ }
+    if (server?.exitCode !== null && server?.exitCode !== undefined) throw new Error('Production server exited before becoming ready');
+    await delay(1000);
+  }
+  assert(ready, 'The production site must be reachable');
+  browser = await chromium.launch({ headless: true });
+  page = await browser.newPage({ viewport: { width: 1440, height: 1000 }, reducedMotion: 'reduce' });
+  const pageErrors = [];
+  page.on('pageerror', (error) => pageErrors.push(error.message));
+  const go = async (route, expected = 200) => {
+    const response = await page.goto(`${baseURL}${route}`, { waitUntil: 'networkidle' });
+    assert.equal(response?.status(), expected, route);
+    await page.evaluate(() => document.fonts.ready);
+    return response;
+  };
+  const noOverflow = async (route, width) => {
+    // Chromium can report the previous scrollable area during the resize frame.
+    // Wait for responsive layout and its paint, then keep the strict 1px tolerance.
+    await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+    const dimensions = await page.evaluate(() => ({ viewport: innerWidth, width: document.documentElement.scrollWidth }));
+    assert(dimensions.width <= dimensions.viewport + 1, `Horizontal overflow at ${route}, ${width}px: ${JSON.stringify(dimensions)}`);
+  };
+  const loadImages = async () => {
+    // Full-page screenshots do not automatically trigger below-fold lazy images.
+    // Promote loading only inside the test, then verify the actual assets decoded.
+    const failures = await page.locator('main img').evaluateAll(async (images) => {
+      images.forEach((image) => { image.loading = 'eager'; });
+      return (await Promise.all(images.map(async (image) => {
+        try { await image.decode(); } catch { return image.getAttribute('src'); }
+        return image.naturalWidth > 0 ? null : image.getAttribute('src');
+      }))).filter(Boolean);
+    });
+    assert.deepEqual(failures, [], 'All portfolio image assets must load');
+  };
+
+  await go('/about/cv');
+  await page.emulateMedia({ media: 'print' });
+  for (const width of [1440, 390]) {
+    await page.setViewportSize({ width, height: 1000 });
+    const pdf = await page.pdf({ format: 'A4', preferCSSPageSize: true, printBackground: true, displayHeaderFooter: false, path: `${output}/viet-tran-cv-${width}.pdf` });
+    const count = (pdf.toString('latin1').match(/\/Type\s*\/Page\b/g) || []).length;
+    assert.equal(count, 1, `CV must have exactly one PDF page at ${width}px`);
+    const printInfo = await page.locator('#printable-cv').evaluate((element) => ({ overflow: getComputedStyle(element).overflow, fontSize: parseFloat(getComputedStyle(element).fontSize) }));
+    assert.equal(printInfo.overflow, 'visible', 'Do not hide overflow to fake one-page output');
+    assert(printInfo.fontSize >= 14, 'CV body type must remain at least 10.5pt');
+    record(`A4 PDF at ${width}px viewport: exactly one page, unclipped 10.5pt body`);
+  }
+  await page.emulateMedia({ media: 'screen' });
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  const references = [
+    ['TM Beauty', 'https://tmbeauty.fi/'],
+    ['KovaFit', 'https://apps.apple.com/us/app/kovafit/id6758958067'],
+    ['DartScope', 'https://apps.apple.com/us/app/dartscope/id6760133199'],
+  ];
+  for (const route of ['/', '/consulting', '/projects', '/about/cv', '/about', '/contact']) {
+    await go(route);
+    assert.equal(await page.locator('main').count(), 1, `Exactly one main landmark: ${route}`);
+    assert.equal(await page.locator('h1').count(), 1, `Exactly one primary heading: ${route}`);
+    if (route === '/' || route === '/consulting' || route === '/about/cv') {
+      assert.match(await page.locator('main').innerText(), /100\+ client integrations/);
+      for (const [name, href] of references) {
+        assert((await page.locator('main').innerText()).includes(name), `${name} on ${route}`);
+        assert(await page.locator(`main a[href="${href}"]`).count() > 0, `${name} link on ${route}`);
+      }
+    }
+    const expectedCanonical = new URL(route, 'https://viet.fi').href;
+    const canonical = await page.locator('link[rel="canonical"]').getAttribute('href');
+    assert(canonical, `Canonical link missing: ${route}`);
+    assert.equal(new URL(canonical).href, expectedCanonical, `Canonical URL: ${route}`);
+    assert.equal(await page.locator('a[href*="viettran.dev"]').count(), 0, `No stale domain links: ${route}`);
+    for (const width of [320, 390, 768, 1440]) {
+      await page.setViewportSize({ width, height: 1000 });
+      await noOverflow(route, width);
+    }
+    const name = route === '/' ? 'home' : route.slice(1).replaceAll('/', '-');
+    await loadImages();
+    await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
+    await page.screenshot({ path: `${output}/${name}-desktop.png`, fullPage: true });
+    await page.setViewportSize({ width: 390, height: 844 });
+    await loadImages();
+    await page.screenshot({ path: `${output}/${name}-mobile.png`, fullPage: true });
+    if (route === '/') {
+      await page.setViewportSize({ width: 768, height: 1024 });
+      await loadImages();
+      await page.screenshot({ path: `${output}/${name}-tablet.png`, fullPage: true });
+      assert.equal(await page.locator('.hero-visual').evaluate((element) => getComputedStyle(element).animationName), 'none', 'Reduced motion disables the montage entrance');
+      const contrast = await page.evaluate(() => {
+        const canvas = document.createElement('canvas');
+        canvas.width = canvas.height = 1;
+        const context = canvas.getContext('2d', { willReadFrequently: true });
+        if (!context) throw new Error('Canvas unavailable for sRGB contrast measurement');
+        const rgb = (color) => { context.clearRect(0, 0, 1, 1); context.fillStyle = color; context.fillRect(0, 0, 1, 1); return [...context.getImageData(0, 0, 1, 1).data].slice(0, 3); };
+        const luminance = (color) => rgb(color).map((channel) => channel / 255).map((channel) => channel <= .04045 ? channel / 12.92 : ((channel + .055) / 1.055) ** 2.4).reduce((sum, channel, index) => sum + channel * [.2126, .7152, .0722][index], 0);
+        const tokens = getComputedStyle(document.documentElement);
+        const pairs = [['--ink', '--paper'], ['--muted', '--paper'], ['--muted', '--canvas'], ['--accent', '--paper'], ['--accent', '--canvas'], ['--paper', '--accent']];
+        const checks = pairs.map(([fg, bg]) => {
+          const a = luminance(tokens.getPropertyValue(fg).trim());
+          const b = luminance(tokens.getPropertyValue(bg).trim());
+          return { pair: `${fg} on ${bg}`, ratio: (Math.max(a, b) + .05) / (Math.min(a, b) + .05) };
+        });
+        const contact = document.querySelector('.contact-block');
+        const paragraph = contact?.querySelector('p');
+        if (contact && paragraph) {
+          const a = luminance(getComputedStyle(paragraph).color);
+          const b = luminance(getComputedStyle(contact).backgroundColor);
+          checks.push({ pair: 'Contact section paragraph', ratio: (Math.max(a, b) + .05) / (Math.min(a, b) + .05) });
+        }
+        return checks;
+      });
+      await writeFile(`${output}/contrast.json`, JSON.stringify(contrast, null, 2));
+      for (const check of contrast) assert(check.ratio >= 4.5, `${check.pair}: contrast ${check.ratio.toFixed(2)} must be at least 4.5`);
+      record('All seven text/background contrast pairs meet 4.5:1; reduced motion works');
+    }
+    await page.setViewportSize({ width: 1440, height: 1000 });
+    record(`Route, content, canonical, loaded images and four viewport widths OK: ${route}`);
+  }
+  await go('/');
+  await page.getByRole('navigation', { name: 'Main navigation' }).getByRole('link', { name: 'Consulting', exact: true }).filter({ visible: true }).click();
+  await page.waitForURL('**/consulting');
+  record('Desktop Consulting navigation works from home');
+  await page.setViewportSize({ width: 390, height: 844 });
+  await go('/');
+  await page.getByRole('button', { name: 'Open menu', exact: true }).click();
+  await page.locator('#mobile-navigation').getByRole('link', { name: 'CV', exact: true }).click();
+  await page.waitForURL('**/about/cv');
+  assert.equal(await page.getByRole('button', { name: 'Open menu', exact: true }).getAttribute('aria-expanded'), 'false');
+  await page.getByRole('button', { name: 'Open menu', exact: true }).click();
+  await page.keyboard.press('Escape');
+  assert.equal(await page.getByRole('button', { name: 'Open menu', exact: true }).getAttribute('aria-expanded'), 'false');
+  record('Mobile CV navigation, menu closing and Escape work');
+  for (const slug of ['tm-beauty', 'kovafit', 'dartscope', 'telegram-gemini-chatbot', 'ai-fitness-coach', 'XML-transform-tool', 'tower-defence-game', 'deno-app', 'old-portfolio-page']) {
+    await go(`/projects/${slug}`);
+    assert.equal(await page.locator('h1').count(), 1);
+    if (['tm-beauty', 'kovafit', 'dartscope'].includes(slug)) await loadImages();
+  }
+  await go('/projects/not-a-real-project', 404);
+  await go('/cv');
+  assert.equal(new URL(page.url()).pathname, '/about/cv');
+  record('All nine project pages, real 404 and CV alias work');
+  await page.evaluate(() => { window.__printCalled = false; window.print = () => { window.__printCalled = true; }; });
+  await page.getByRole('button', { name: 'Print / save PDF', exact: true }).click();
+  await page.waitForFunction(() => window.__printCalled === true);
+  assert.deepEqual(pageErrors, [], 'No uncaught browser errors');
+  record('Print control works; no uncaught browser errors');
+} catch (error) {
+  await page?.screenshot({ path: `${output}/failure.png`, fullPage: true }).catch(() => {});
+  throw error;
+} finally {
+  await writeFile(`${output}/verification.json`, JSON.stringify({ baseURL, checkedAt: new Date().toISOString(), results }, null, 2));
+  await browser?.close();
+  server?.kill('SIGTERM');
+}

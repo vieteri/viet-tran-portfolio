@@ -1,0 +1,59 @@
+name: Portfolio and one-page CV checks
+
+on:
+  push:
+    branches: ['preview/**']
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: portfolio-checks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      NEXT_TELEMETRY_DISABLED: '1'
+      PUPPETEER_SKIP_DOWNLOAD: 'true'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build
+      - run: npm run typecheck
+      - run: npx playwright install --with-deps chromium
+      - name: Browser regression checks
+        run: npm run test:portfolio || { node scripts/diagnose-layout.mjs; exit 1; }
+      - name: Validate PDF text and page count independently
+        run: |
+          python -m pip install pypdf
+          python - <<'PY'
+          from pathlib import Path
+          from pypdf import PdfReader
+          for filename in Path('test-results/portfolio').glob('*.pdf'):
+              pdf = PdfReader(filename)
+              assert len(pdf.pages) == 1, filename
+              text = pdf.pages[0].extract_text()
+              for phrase in ['100+', 'S-Pankki', 'Frends', 'Softsys', 'KovaFit', 'DartScope', 'Languages:', 'professional']:
+                  assert phrase in text, (filename, phrase)
+              assert 'Site navigation' not in text
+              assert 590 < float(pdf.pages[0].mediabox.width) < 600
+              assert 838 < float(pdf.pages[0].mediabox.height) < 845
+              print(f'{filename}: one A4 page, searchable text and final CV content present')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: portfolio-verification
+          path: test-results/portfolio
+          retention-days: 14
+          if-no-files-found: warn

@@ -1,0 +1,54 @@
+.cv-page { background: #eef1f4; padding: 32px 16px 48px; color: #17202c; }
+.cv-toolbar { max-width: 210mm; margin: 0 auto 20px; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-family: Arial, sans-serif; }
+.cv-toolbar p { margin: 0; font-size: 14px; color: #455468; }
+.cv-print-button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 0; border-radius: 8px; padding: 12px 18px; background: #145e64; color: white; font-size: 14px; font-weight: 700; cursor: pointer; }
+.cv-print-button:disabled { opacity: .6; cursor: wait; }
+.cv-print-button:focus-visible, #printable-cv a:focus-visible { outline: 3px solid #2563eb; outline-offset: 4px; }
+#printable-cv { box-sizing: border-box; width: 100%; max-width: 210mm; margin: 0 auto; padding: 12mm; background: white; box-shadow: 0 8px 40px #17202c12; color: #17202c; font: 10.5pt/1.38 Arial, Helvetica, sans-serif; }
+#printable-cv * { box-sizing: border-box; }
+#printable-cv h1, #printable-cv h2, #printable-cv h3, #printable-cv p, #printable-cv ul { margin: 0; }
+#printable-cv a { color: #145e64; text-decoration: none; }
+#printable-cv a:hover { text-decoration: underline; }
+#printable-cv .cv-header { border-bottom: 2px solid #145e64; padding-bottom: 4mm; margin-bottom: 4mm; }
+#printable-cv h1 { font-size: 30pt; line-height: 1.05; font-weight: 700; letter-spacing: -.8pt; }
+#printable-cv .cv-title { font-size: 12pt; margin-top: 2mm; color: #145e64; font-weight: 700; }
+#printable-cv .cv-contact { margin-top: 2.5mm; display: flex; flex-wrap: wrap; gap: 1mm 4mm; font-size: 9pt; }
+#printable-cv .cv-contact-secondary { margin-top: 1mm; }
+#printable-cv section { margin-top: 4mm; }
+#printable-cv h2 { font-size: 10pt; line-height: 1.2; text-transform: uppercase; letter-spacing: 1pt; font-weight: 700; color: #145e64; padding-bottom: 1.6mm; border-bottom: 1px solid #d9e2e7; margin-bottom: 2mm; }
+#printable-cv h3 { font-size: 10.5pt; font-weight: 700; }
+#printable-cv .cv-role { margin-top: 2.6mm; break-inside: avoid; }
+#printable-cv .cv-role:first-of-type { margin-top: 0; }
+#printable-cv .cv-role-header, #printable-cv .cv-education-row { display: flex; align-items: baseline; justify-content: space-between; gap: 4mm; }
+#printable-cv .cv-role-company { font-weight: 400; color: #455468; }
+#printable-cv .cv-period { flex-shrink: 0; font-size: 9pt; color: #455468; }
+#printable-cv ul { list-style: disc; padding-left: 4.5mm; margin-top: 1mm; }
+#printable-cv li { padding-left: .5mm; margin-top: .5mm; }
+#printable-cv .cv-earlier { margin-top: 2mm; font-size: 9pt; color: #455468; }
+#printable-cv .cv-skills p + p, #printable-cv .cv-project + .cv-project, #printable-cv .cv-education-row + .cv-education-row { margin-top: 1.5mm; }
+#printable-cv .cv-project { break-inside: avoid; }
+#printable-cv .cv-project strong { color: #17202c; }
+#printable-cv .cv-project-link { font-size: 9pt; white-space: nowrap; }
+#printable-cv .cv-education-row p { font-size: 10pt; }
+#printable-cv .cv-end { margin-top: 3mm; border-top: 1px solid #d9e2e7; padding-top: 2mm; font-size: 9pt; color: #455468; }
+@media screen and (max-width: 640px) {
+  .cv-page { padding: 20px 12px; }
+  .cv-toolbar { align-items: stretch; flex-direction: column; }
+  #printable-cv { padding: 24px 20px; font-size: 14px; }
+  #printable-cv .cv-role-header, #printable-cv .cv-education-row { flex-direction: column; gap: 1mm; }
+  #printable-cv .cv-role { margin-top: 5mm; }
+  #printable-cv .cv-contact { flex-direction: column; }
+  #printable-cv h1 { font-size: 28pt; }
+}
+@media print {
+  @page { size: A4 portrait; margin: 12mm; }
+  html:has(.cv-page), body:has(.cv-page) { margin: 0 !important; padding: 0 !important; height: auto !important; min-height: 0 !important; background: white !important; }
+  body:has(.cv-page) { display: block !important; }
+  body:has(.cv-page) > :not(main) { display: none !important; }
+  body:has(.cv-page) > main { display: block !important; padding: 0 !important; margin: 0 !important; min-height: 0 !important; }
+  .cv-page { padding: 0 !important; margin: 0 !important; background: white; }
+  .cv-toolbar, .no-print { display: none !important; }
+  #printable-cv { width: auto; max-width: none; margin: 0; padding: 0; box-shadow: none; overflow: visible; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  #printable-cv a { color: inherit; }
+  #printable-cv h2, #printable-cv h3 { break-after: avoid; }
+}
