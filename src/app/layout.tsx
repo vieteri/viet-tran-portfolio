@@ -18,23 +18,23 @@ const robotoMono = Roboto_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Viet Tran - Software engineer | Enterprise Systems & AI Solutions',
-  description: 'Software engineer specializing in Enterprise Systems, API Architecture, and AI Solutions. Expert in Microsoft Dynamics 365, Business Central, SAP integrations, and modern web technologies.',
+  title: 'Viet Tran | Software Consulting, Integrations & Product Development',
+  description: 'Helsinki-based software consultant building integrations, APIs, mobile apps and web products. Enterprise integration experience with hands-on product delivery.',
   keywords: ['Integration Developer', 'API Development', 'Enterprise Integration', 'Microsoft Dynamics 365', 'Business Central', 'SAP', 'AI Solutions', 'Next.js', 'React', 'TypeScript'],
-  authors: [{ name: 'Viet Tran', url: 'https://viettran.dev' }],
+  authors: [{ name: 'Viet Tran', url: 'https://viet.fi' }],
   creator: 'Viet Tran',
   publisher: 'Viet Tran',
   icons: {
     icon: '/viet-sword-favicon.svg',
   },
-  metadataBase: new URL('https://viettran.dev'),
+  metadataBase: new URL('https://viet.fi'),
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://viettran.dev',
-    title: 'Viet Tran - Software engineer | Enterprise Systems & AI Solutions',
-    description: 'Software engineer specializing in Enterprise Systems, API Architecture, and AI Solutions. Expert in Microsoft Dynamics 365, Business Central, SAP integrations, and modern web technologies.',
-    siteName: 'Viet Tran Portfolio',
+    url: 'https://viet.fi',
+    title: 'Viet Tran | Software Consulting, Integrations & Product Development',
+    description: 'Helsinki-based software consultant building integrations, APIs, mobile apps and web products.',
+    siteName: 'Viet Tran — Software Consulting',
     images: [
       {
         url: '/viet.png',
@@ -46,8 +46,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Viet Tran - Software engineer',
-    description: 'Software engineer specializing in Enterprise Systems, API Architecture, and AI Solutions.',
+    title: 'Viet Tran — Software Consulting',
+    description: 'Integrations, APIs, mobile apps and web product development.',
     images: ['/viet.png'],
   },
   robots: {
@@ -72,7 +72,7 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Viet Tran",
-    "jobTitle": "Integration Developer",
+    "jobTitle": "Software Engineer and Consultant",
     "email": "it@viet.fi",
     
     "address": {
@@ -80,7 +80,7 @@ export default function RootLayout({
       "addressLocality": "Helsinki",
       "addressCountry": "FI"
     },
-    "url": "https://viettran.dev",
+    "url": "https://viet.fi",
     "knowsAbout": [
       "API Management",
       "ERP Integration",
