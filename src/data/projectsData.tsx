@@ -1,10 +1,11 @@
-export const projects = [
+import type { ProjectProps } from '@/app/interfaces';
+
+export const projects: ProjectProps[] = [
   {
     slug: 'tm-beauty',
     title: 'TM Beauty',
-    description: 'Client website for a Helsinki beauty salon, designed around clear service discovery, pricing, local SEO and conversion to online booking.',
-    imageSrc: null,
-    imageAlt: 'TM Beauty website',
+    description: 'Client website for a Helsinki beauty business, presenting services, pricing and a clear route to online booking.',
+    cvSummary: 'Client website for a Helsinki beauty business.',
     externalLink: 'https://tmbeauty.fi/',
     externalLabel: 'Visit website',
     featured: true,
@@ -13,10 +14,9 @@ export const projects = [
   {
     slug: 'kovafit',
     title: 'KovaFit',
-    description: 'Production iPhone fitness app with workout tracking, progress analytics and AI coaching, backed by a modern mobile and cloud architecture.',
-    imageSrc: null,
-    imageAlt: 'KovaFit iPhone app',
-    externalLink: 'https://apps.apple.com/app/id6758958067',
+    description: 'Published iPhone fitness app with workout logging, custom routines, progress analytics and AI coaching.',
+    cvSummary: 'iPhone workout tracking, routines and AI coaching.',
+    externalLink: 'https://apps.apple.com/us/app/kovafit/id6758958067',
     externalLabel: 'View on App Store',
     featured: true,
     category: 'App Store',
@@ -24,10 +24,9 @@ export const projects = [
   {
     slug: 'dartscope',
     title: 'DartScope',
-    description: 'iPhone and iPad app for finding darts venues and tracking matches, combining map-based discovery, community data and score keeping.',
-    imageSrc: null,
-    imageAlt: 'DartScope iOS app',
-    externalLink: 'https://apps.apple.com/app/id6760133199',
+    description: 'Published iPhone and iPad app for discovering darts venues, reading community reviews and tracking matches.',
+    cvSummary: 'Darts venue discovery and match tracking.',
+    externalLink: 'https://apps.apple.com/us/app/dartscope/id6760133199',
     externalLabel: 'View on App Store',
     featured: true,
     category: 'App Store',
@@ -93,3 +92,5 @@ export const projects = [
     category: 'Archive',
   },
 ];
+
+export const featuredProjects = projects.filter((project) => project.featured);

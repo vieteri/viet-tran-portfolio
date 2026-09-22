@@ -1,125 +1,65 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
-import { Menu, X } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { ArrowUpRight, Menu, X } from 'lucide-react';
+import { profile } from '@/data/profile';
 
-const navItems = [
-  { href: '/#home', label: 'Home' },
-  { href: '/#about', label: 'About' },
-  { href: '/#experience', label: 'Experience' },
-  { href: '/#projects', label: 'Work' },
+const items = [
+  { href: '/', label: 'Home' },
   { href: '/consulting', label: 'Consulting' },
+  { href: '/projects', label: 'Work' },
+  { href: '/about/cv', label: 'CV' },
 ];
 
-const Navigation = () => {
-  const [activeSection, setActiveSection] = useState('');
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+export default function Navigation() {
   const pathname = usePathname();
-  const isHomePage = pathname === '/';
+  const [open, setOpen] = useState(false);
+  const toggle = useRef<HTMLButtonElement>(null);
+  const container = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    // Only run scroll spy on home page
-    if (!isHomePage) {
-      setActiveSection('');
-      return;
-    }
-
-    const handleScroll = () => {
-      const sections = navItems.map(item => item.href.substring(2)); // Remove '/#'
-
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top >= 0 && rect.top <= 300) {
-            setActiveSection(`/#${section}`);
-            break;
-          }
-        }
+    if (!open) return;
+    const keydown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setOpen(false);
+        toggle.current?.focus();
       }
     };
+    const pointerdown = (event: PointerEvent) => {
+      if (!container.current?.contains(event.target as Node)) setOpen(false);
+    };
+    document.addEventListener('keydown', keydown);
+    document.addEventListener('pointerdown', pointerdown);
+    return () => {
+      document.removeEventListener('keydown', keydown);
+      document.removeEventListener('pointerdown', pointerdown);
+    };
+  }, [open]);
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [isHomePage]);
-
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    setIsMobileMenuOpen(false);
-
-    if (isHomePage) {
-      e.preventDefault();
-      const targetId = href.substring(2); // Remove '/#'
-      const element = document.getElementById(targetId);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-        setActiveSection(href);
-      }
-    }
-  };
+  const active = (href: string) => href === '/' ? pathname === '/' : pathname.startsWith(href);
+  const links = items.map((item) => (
+    <Link key={item.href} href={item.href} onClick={() => setOpen(false)}
+      aria-current={active(item.href) ? 'page' : undefined}
+      className={`rounded px-2 py-2 text-sm font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-teal-300 ${active(item.href) ? 'text-teal-300' : 'text-gray-300 hover:text-white'}`}>
+      {item.label}
+    </Link>
+  ));
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-gray-900/95 backdrop-blur-sm border-b border-gray-800">
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo - Visible on mobile only */}
-          <Link href="/" className="text-xl font-bold text-white md:hidden">
-            VT
-          </Link>
-
-          {/* Desktop Navigation */}
-          <ul className="hidden md:flex space-x-8 justify-center h-16 items-center w-full">
-            {navItems.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  onClick={(e) => handleClick(e, item.href)}
-                  className={`text-sm font-medium transition-colors duration-200 ${activeSection === item.href
-                    ? 'text-blue-400'
-                    : 'text-gray-400 hover:text-white'
-                    }`}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden text-gray-300 hover:text-white p-2"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
+    <nav ref={container} aria-label="Main navigation" className="fixed inset-x-0 top-0 z-50 border-b border-gray-800 bg-gray-950/95 backdrop-blur-md print:hidden">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-6">
+        <Link href="/" onClick={() => setOpen(false)} className="font-semibold tracking-tight text-white">Viet Tran<span className="text-teal-300">.</span></Link>
+        <div className="hidden items-center gap-5 md:flex">{links}</div>
+        <a href={`mailto:${profile.email}`} className="hidden items-center gap-2 rounded-lg border border-gray-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:border-teal-300 md:inline-flex">Discuss a project<ArrowUpRight size={16} aria-hidden="true" /></a>
+        <button ref={toggle} type="button" aria-expanded={open} aria-controls="mobile-navigation" aria-label={open ? 'Close menu' : 'Open menu'} onClick={() => setOpen(!open)} className="rounded-lg p-2 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-teal-300 md:hidden">
+          {open ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
+        </button>
       </div>
-
-      {/* Mobile Menu Overlay */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden absolute top-16 left-0 right-0 bg-gray-900/95 backdrop-blur-md border-b border-gray-800 shadow-xl animate-in slide-in-from-top-2 duration-200">
-          <ul className="flex flex-col p-6 space-y-4">
-            {navItems.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  onClick={(e) => handleClick(e, item.href)}
-                  className={`block text-lg font-medium transition-colors duration-200 ${activeSection === item.href
-                    ? 'text-blue-400'
-                    : 'text-gray-300 hover:text-white'
-                    }`}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+      <div id="mobile-navigation" hidden={!open} className="border-t border-gray-800 bg-gray-950 px-6 py-4 md:hidden">
+        <div className="flex flex-col gap-2">{links}<a href={`mailto:${profile.email}`} onClick={() => setOpen(false)} className="px-2 py-3 font-medium text-teal-300">Discuss a project</a></div>
+      </div>
     </nav>
   );
-};
-
-export default Navigation;
+}

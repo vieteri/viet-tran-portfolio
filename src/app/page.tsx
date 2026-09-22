@@ -1,342 +1,51 @@
-'use client';
+import type { Metadata } from 'next';
+import Image from 'next/image';
+import Link from 'next/link';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
+import Metrics from '@/components/Metrics';
+import ProjectCard from '@/components/ProjectCard';
+import { featuredProjects } from '@/data/projectsData';
+import { consultingServices } from '@/data/consulting';
+import { experienceData } from '@/data/experience';
+import { profile, integrationLabel } from '@/data/profile';
 
-import React from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { motion } from 'framer-motion';
-import { ArrowRight, Mail, Linkedin, Github } from 'lucide-react';
-import Experience from "@/components/Experience";
-import Skills from "@/components/Skills";
-import Education from "@/components/Education";
-import Metrics from "@/components/Metrics";
-import { projects } from "@/data/projectsData";
+export const metadata: Metadata = { alternates: { canonical: '/' } };
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gray-900 selection:bg-blue-500/30">
-
-      {/* Hero Section */}
-      <section id="home" className="relative min-h-screen flex items-center justify-center pt-16 overflow-hidden">
-        {/* Background Gradients */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary-600/10 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-secondary-600/10 rounded-full blur-3xl animate-pulse-slow"></div>
+    <div className="bg-gray-900 text-white">
+      <section id="home" className="mx-auto grid max-w-7xl items-center gap-12 px-6 py-20 lg:grid-cols-[1.4fr_0.8fr] lg:py-28">
+        <div>
+          <p className="mb-6 text-sm font-semibold uppercase tracking-[0.18em] text-teal-300">Viet Tran / Software consulting</p>
+          <h1 className="max-w-3xl text-4xl font-semibold leading-[1.1] tracking-tight sm:text-6xl lg:text-7xl">Reliable integrations.<br /><span className="text-teal-300">Useful digital products.</span></h1>
+          <p className="mt-7 max-w-2xl text-lg leading-relaxed text-gray-300">I help companies connect systems, improve workflows and build web and mobile products. Hands-on engineering, from the first technical decision to production.</p>
+          <p className="mt-5 text-sm text-gray-300"><strong className="text-white">{integrationLabel}</strong> delivered across my career.</p>
+          <div className="mt-9 flex flex-wrap gap-4">
+            <a href={`mailto:${profile.email}`} className="inline-flex items-center gap-2 rounded-lg bg-teal-300 px-6 py-3.5 font-semibold text-gray-950 transition-colors hover:bg-teal-200">Discuss a project<ArrowUpRight size={18} aria-hidden="true" /></a>
+            <a href="#projects" className="inline-flex items-center gap-2 rounded-lg border border-gray-600 px-6 py-3.5 font-medium text-white transition-colors hover:border-gray-300">See selected work<ArrowRight size={18} aria-hidden="true" /></a>
+          </div>
+          <p className="mt-6 text-sm text-gray-400">Helsinki, Finland · Remote collaboration · Selective consulting projects</p>
         </div>
-
-        <div className="relative max-w-7xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-12 items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="order-2 md:order-1 text-center md:text-left"
-          >
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight leading-tight"
-            >
-              Viet <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-secondary-400">Tran</span>
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-xl md:text-2xl text-gray-300 mb-8 max-w-xl leading-relaxed"
-            >
-              Software consultant and engineer helping companies build <span className="text-primary-400 font-semibold">integrations</span>, <span className="text-secondary-400 font-semibold">APIs</span>, and <span className="text-accent-400 font-semibold">digital products</span> that are reliable enough for production.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start items-center"
-            >
-              <Link
-                href="#projects"
-                className="px-8 py-4 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-all duration-300 shadow-lg hover:shadow-glow-blue flex items-center font-medium group"
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
-                }}
-              >
-                See Shipped Work
-                <ArrowRight className="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <Link
-                href="/consulting"
-                className="px-8 py-4 bg-gray-800 text-gray-300 rounded-lg hover:bg-gray-700 transition-all duration-300 border border-gray-700 hover:border-primary-500/50 flex items-center font-medium"
-              >
-                Consulting Services
-              </Link>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              className="mt-12 flex justify-center md:justify-start space-x-6 text-gray-400"
-            >
-              <a href="https://github.com/vieteri" target="_blank" rel="noreferrer" className="hover:text-white transition-colors p-2 hover:bg-gray-800 rounded-full" aria-label="GitHub Profile">
-                <Github className="w-6 h-6" />
-              </a>
-              <a href="https://www.linkedin.com/in/viet-tran-a9a492a8/" target="_blank" rel="noreferrer" className="hover:text-primary-400 transition-colors p-2 hover:bg-gray-800 rounded-full" aria-label="LinkedIn Profile">
-                <Linkedin className="w-6 h-6" />
-              </a>
-              <a href="mailto:it@viet.fi" className="hover:text-accent-400 transition-colors p-2 hover:bg-gray-800 rounded-full" aria-label="Email Contact">
-                <Mail className="w-6 h-6" />
-              </a>
-            </motion.div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="order-1 md:order-2 flex justify-center md:justify-end relative"
-          >
-            <div className="relative w-72 h-72 md:w-96 md:h-96">
-              <div className="absolute inset-0 bg-gradient-to-tr from-primary-500 to-secondary-500 rounded-full blur-2xl opacity-20 animate-pulse"></div>
-              <Image
-                src="/viet-2026.png"
-                alt="Viet Tran - Integration Developer"
-                fill
-                style={{ objectFit: 'cover' }}
-                priority
-                placeholder="blur"
-                blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg=="
-                className="rounded-full border-4 border-gray-800/50 shadow-2xl relative z-10"
-              />
-            </div>
-          </motion.div>
-        </div>
+        <aside className="mx-auto w-full max-w-sm rounded-2xl border border-gray-700 bg-gray-800/40 p-7">
+          <Image src="/viet-2026.png" alt="Viet Tran" width={320} height={320} sizes="(max-width: 1023px) 320px, 30vw" className="aspect-square w-full rounded-xl object-cover" priority />
+          <p className="mt-6 text-xl font-semibold">A developer you work with directly.</p>
+          <p className="mt-3 leading-relaxed text-gray-300">Enterprise integration experience, with the practical perspective of building and publishing my own products.</p>
+          <Link href="/about/cv" className="mt-5 inline-flex items-center gap-2 font-medium text-teal-300">View one-page CV<ArrowRight size={17} aria-hidden="true" /></Link>
+        </aside>
       </section>
-
-      {/* Metrics Section */}
       <Metrics />
-
-      {/* About & Skills Section */}
-      <section id="about" className="py-24 bg-gray-800/30">
-        <div className="max-w-6xl mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">About Me</h2>
-            <div className="w-20 h-1 bg-gradient-to-r from-primary-600 to-secondary-600 mx-auto rounded-full"></div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mb-16"
-          >
-            <div className="bg-gradient-to-br from-gray-800/60 via-gray-800/40 to-gray-900/60 backdrop-blur-sm rounded-2xl p-8 md:p-10 border border-gray-700/50 shadow-xl">
-              <div className="space-y-6 max-w-4xl">
-                <p className="text-lg text-gray-300 leading-relaxed">
-                  Software Engineer with a <span className="text-primary-400 font-semibold">Master&apos;s degree in Electrical Engineering</span> from Aalto University,
-                  focused on enterprise systems integration and API architecture. Expertise in bridging legacy systems with modern cloud infrastructure.
-                </p>
-                <p className="text-lg text-gray-300 leading-relaxed">
-                  Currently part of the integration architecture team at <span className="text-primary-400 font-semibold">S-Pankki</span>, designing enterprise-level solutions
-                  and managing the complete API development lifecycle. Architecting integration patterns for financial systems and leading projects from conception through testing to production deployment.
-                </p>
-                <p className="text-lg text-gray-300 leading-relaxed">
-                  Alongside enterprise integration work, I design and ship complete digital products: production mobile apps, business websites and AI-enabled software. I take on selective consulting engagements where I can contribute hands-on architecture and implementation, not just slide decks.
-                </p>
-              </div>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="mb-16"
-          >
-            <h3 className="text-2xl font-bold text-white mb-8 flex items-center">
-              <span className="w-1 h-8 bg-gradient-to-b from-primary-500 to-secondary-500 rounded-full mr-4"></span>
-              Technical Skills
-            </h3>
-            <Skills />
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
-            <div className="bg-gradient-to-br from-gray-800/60 via-gray-800/40 to-gray-900/60 backdrop-blur-sm rounded-2xl p-8 md:p-10 border border-gray-700/50 hover:border-primary-500/50 transition-all duration-300 shadow-xl">
-              <h3 className="text-2xl font-bold text-white mb-6 flex items-center">
-                <span className="w-1 h-8 bg-gradient-to-b from-primary-500 to-secondary-500 rounded-full mr-4"></span>
-                Project Management & Leadership
-              </h3>
-              <ul className="grid md:grid-cols-2 gap-4 text-gray-300">
-                <li className="flex items-start">
-                  <span className="text-primary-400 mr-3 mt-1 text-xl">✓</span>
-                  <span className="leading-relaxed">Event management for large-scale events (5000+ attendees)</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-primary-400 mr-3 mt-1 text-xl">✓</span>
-                  <span className="leading-relaxed">Volunteer workforce management and team leadership</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-primary-400 mr-3 mt-1 text-xl">✓</span>
-                  <span className="leading-relaxed">Academic course assistance and grading</span>
-                </li>
-              </ul>
-            </div>
-          </motion.div>
-        </div>
+      <section id="projects" className="mx-auto max-w-7xl scroll-mt-24 px-6 py-20">
+        <div className="mb-10 flex flex-wrap items-end justify-between gap-5"><div><p className="mb-3 text-sm font-semibold uppercase tracking-widest text-teal-300">Selected work</p><h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">Live websites. Published apps.</h2><p className="mt-4 max-w-2xl leading-relaxed text-gray-300">A client website and two independent App Store products. Concrete examples of what I build.</p></div><Link href="/projects" className="inline-flex items-center gap-2 font-medium text-teal-300">All projects<ArrowRight size={17} aria-hidden="true" /></Link></div>
+        <div className="grid gap-6 md:grid-cols-3">{featuredProjects.map((project) => <ProjectCard key={project.slug} project={project} />)}</div>
       </section>
-
-      {/* Experience & Education Section */}
-      <section id="experience" className="py-24">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-16">
-            <div>
-              <div className="mb-12">
-                <h2 className="text-3xl font-bold text-white mb-4 flex items-center">
-                  <span className="bg-blue-600/20 p-2 rounded-lg mr-3 text-blue-400">
-                    <ArrowRight className="w-6 h-6" />
-                  </span>
-                  Experience
-                </h2>
-              </div>
-              <Experience />
-            </div>
-
-            <div>
-              <div className="mb-12">
-                <h2 className="text-3xl font-bold text-white mb-4 flex items-center">
-                  <span className="bg-purple-600/20 p-2 rounded-lg mr-3 text-purple-400">
-                    <ArrowRight className="w-6 h-6" />
-                  </span>
-                  Education
-                </h2>
-              </div>
-              <Education />
-            </div>
-          </div>
-        </div>
+      <section id="services" className="border-y border-gray-800 bg-gray-950/30 px-6 py-20">
+        <div className="mx-auto max-w-7xl"><p className="mb-3 text-sm font-semibold uppercase tracking-widest text-teal-300">How I can help</p><h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">From a specific problem to working software.</h2><div className="mt-10 grid gap-8 md:grid-cols-3">{consultingServices.map((service) => <article key={service.number}><p className="font-mono text-sm text-teal-300">{service.number}</p><h3 className="mt-4 text-xl font-semibold">{service.title}</h3><p className="mt-3 leading-relaxed text-gray-300">{service.description}</p></article>)}</div><Link href="/consulting" className="mt-10 inline-flex items-center gap-2 font-medium text-teal-300">Explore consulting services<ArrowRight size={17} aria-hidden="true" /></Link></div>
       </section>
-
-      {/* Projects Section */}
-      <section id="projects" className="py-24 bg-gray-800/30">
-        <div className="max-w-7xl mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Selected Work</h2>
-            <div className="w-20 h-1 bg-accent-600 mx-auto rounded-full"></div>
-            <p className="mt-4 text-gray-400 max-w-2xl mx-auto">
-              Real client work and products shipped to users. TM Beauty is a live business website, while KovaFit and DartScope are published on Apple&apos;s App Store.
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.filter((project) => project.featured).map((project, index) => (
-              <motion.div
-                key={project.slug}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ y: -8 }}
-                className="group bg-gray-900 border border-gray-800 rounded-xl overflow-hidden hover:border-primary-500/50 transition-all duration-300 hover:shadow-2xl hover:shadow-primary-900/20 flex flex-col"
-              >
-                <div className="relative h-48 overflow-hidden bg-gray-800">
-                  {project.imageSrc ? (
-                    <Image
-                      src={project.imageSrc}
-                      alt={project.imageAlt || project.title}
-                      fill
-                      style={{ objectFit: 'cover' }}
-                      placeholder="blur"
-                      blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg=="
-                      className="group-hover:scale-110 transition-transform duration-500"
-                    />
-                  ) : (
-                    <div className="flex items-center justify-center h-full bg-gray-800">
-                      <span className="text-gray-600">No Image</span>
-                    </div>
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-60"></div>
-                </div>
-
-                <div className="p-6 flex-grow flex flex-col">
-                  <h3 className="text-xl font-bold text-white mb-2 group-hover:text-primary-400 transition-colors">
-                    {project.title}
-                  </h3>
-                  <p className="text-gray-400 text-sm mb-6 line-clamp-3 flex-grow">
-                    {project.description}
-                  </p>
-
-                  <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-800">
-                    {project.externalLink ? (
-                      <a
-                        href={project.externalLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-sm font-medium text-primary-400 hover:text-primary-300 flex items-center group/link"
-                      >
-                        {project.externalLabel || 'View project'}
-                        <ArrowRight className="w-4 h-4 ml-1 transform group-hover/link:translate-x-1 transition-transform" />
-                      </a>
-                    ) : (
-                      <Link
-                        href={`/projects/${project.slug}`}
-                        className="text-sm font-medium text-primary-400 hover:text-primary-300 flex items-center group/link"
-                      >
-                        View Case Study
-                        <ArrowRight className="w-4 h-4 ml-1 transform group-hover/link:translate-x-1 transition-transform" />
-                      </Link>
-                    )}
-
-                    {project.githubLink && (
-                      <a
-                        href={project.githubLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-gray-500 hover:text-white transition-colors"
-                        aria-label="View on GitHub"
-                      >
-                        <Github className="w-5 h-5" />
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          <div className="text-center mt-12">
-            <a
-              href="https://github.com/vieteri"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center px-6 py-3 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
-            >
-              <Github className="w-5 h-5 mr-2" />
-              View More on GitHub
-            </a>
-          </div>
-        </div>
+      <section id="about" className="mx-auto grid max-w-7xl scroll-mt-24 gap-12 px-6 py-20 lg:grid-cols-2">
+        <div><p className="mb-3 text-sm font-semibold uppercase tracking-widest text-teal-300">Background</p><h2 className="text-3xl font-semibold tracking-tight">Enterprise experience.<br />A product builder&apos;s mindset.</h2><p className="mt-6 leading-relaxed text-gray-300">My work spans banking integrations, ERP systems, warehouse software and customer-facing products. I hold a master&apos;s degree in Automation and Electrical Engineering from Aalto University.</p><p className="mt-4 leading-relaxed text-gray-300">I focus on clear interfaces, maintainable code and practical delivery. For consulting projects, we agree the scope and availability before work starts.</p><Link href="/about/cv" className="mt-6 inline-flex items-center gap-2 font-medium text-teal-300">Experience and one-page CV<ArrowRight size={17} aria-hidden="true" /></Link></div>
+        <div id="experience" className="scroll-mt-24">{experienceData.slice(0, 3).map((experience) => <div key={experience.company} className="border-b border-gray-700 py-5 first:pt-0"><p className="text-sm text-gray-400">{experience.period}</p><h3 className="mt-2 text-xl font-semibold">{experience.company}</h3><p className="mt-1 text-gray-300">{experience.title}</p></div>)}</div>
       </section>
-
+      <section className="border-t border-gray-800 px-6 py-16"><div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-6"><div><h2 className="text-3xl font-semibold">What are you trying to build?</h2><p className="mt-3 text-gray-300">Send me the problem, your current stack and the result you need.</p></div><a href={`mailto:${profile.email}`} className="inline-flex items-center gap-2 rounded-lg bg-teal-300 px-6 py-4 font-semibold text-gray-950 hover:bg-teal-200">{profile.email}<ArrowUpRight size={18} aria-hidden="true" /></a></div></section>
     </div>
   );
 }

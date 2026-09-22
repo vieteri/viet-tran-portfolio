@@ -1,162 +1,50 @@
-'use client';
-
-import { useParams } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
-import { projects } from '@/data/projectsData';
-import { ProjectProps } from '@/app/interfaces';
-import Link from "next/link";
-import Image from "next/image";
+import type { Metadata } from 'next';
+import { readFile } from 'node:fs/promises';
+import path from 'node:path';
+import Image from 'next/image';
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { projects } from '@/data/projectsData';
 
-const ProjectPage = () => {
-  const { slug } = useParams();
-  const [projectData, setProjectData] = useState<ProjectProps | null>(null);
-  const [readmeContent, setReadmeContent] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+type Props = { params: Promise<{ slug: string }> };
 
-  useEffect(() => {
-    const loadProjectData = async () => {
-      try {
-        setIsLoading(true);
-        setError(null);
+export const dynamicParams = false;
+export function generateStaticParams() {
+  return projects.map(({ slug }) => ({ slug }));
+}
 
-        if (!slug) {
-          throw new Error('Project slug not found');
-        }
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const project = projects.find((item) => item.slug === slug);
+  if (!project) notFound();
+  return { title: `${project.title} | Viet Tran`, description: project.description, alternates: { canonical: `/projects/${project.slug}` } };
+}
 
-        const projectInfo = projects.find((proj) => proj.slug === slug);
-
-        if (!projectInfo) {
-          throw new Error('Project not found');
-        }
-
-        setProjectData(projectInfo);
-        
-        try {
-          const response = await fetch(projectInfo.readme);
-          const content = await response.text();
-          setReadmeContent(content);
-        } catch {
-          setError('Failed to load project documentation');
-        }
-
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'An unexpected error occurred');
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    loadProjectData();
-  }, [slug]);
-
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center min-h-screen">
-        <div className="animate-pulse text-gray-300">Loading project details...</div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="max-w-4xl mx-auto p-6">
-        <div className="bg-red-500/10 border border-red-500 rounded-lg p-4 text-red-500">
-          {error}
-        </div>
-      </div>
-    );
-  }
-
-  if (!projectData) {
-    return (
-      <div className="max-w-4xl mx-auto p-6">
-        <div className="bg-yellow-500/10 border border-yellow-500 rounded-lg p-4 text-yellow-500">
-          Project not found
-        </div>
-      </div>
-    );
-  }
-
+export default async function ProjectPage({ params }: Props) {
+  const { slug } = await params;
+  const project = projects.find((item) => item.slug === slug);
+  if (!project) notFound();
+  // Documentation paths come only from the checked-in project catalogue.
+  // External references intentionally do not require a README.
+  const documentation = project.readme
+    ? await readFile(path.join(process.cwd(), 'public', project.readme.replace(/^\//, '')), 'utf8')
+    : null;
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <div className="mb-6">
-        {projectData.githubLink && (
-          <Link 
-            href={projectData.githubLink} 
-            className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            View on GitHub
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-            </svg>
-          </Link>
-        )}
+    <article className="mx-auto max-w-4xl px-6 py-16">
+      <Link href="/projects" className="font-medium text-teal-300 hover:text-teal-200">← All projects</Link>
+      <p className="mt-10 text-sm font-semibold uppercase tracking-widest text-teal-300">{project.category}</p>
+      <h1 className="mt-4 text-4xl font-semibold tracking-tight text-white">{project.title}</h1>
+      <p className="mt-5 text-lg leading-relaxed text-gray-300">{project.description}</p>
+      <div className="my-8 flex flex-wrap gap-5">
+        {project.externalLink && <a href={project.externalLink} target="_blank" rel="noopener noreferrer" className="rounded-lg bg-teal-300 px-5 py-3 font-semibold text-gray-950 hover:bg-teal-200">{project.externalLabel} ↗</a>}
+        {project.githubLink && <a href={project.githubLink} target="_blank" rel="noopener noreferrer" className="rounded-lg border border-gray-600 px-5 py-3 font-medium text-white hover:border-gray-300">View on GitHub ↗</a>}
       </div>
-
-      {readmeContent && (
-        <div className="prose prose-invert max-w-none">
-          <ReactMarkdown
-            remarkPlugins={[remarkGfm]}
-            components={{
-              // Removed unused 'node' parameter
-              h1: ({ ...props }) => <h1 className="text-4xl font-bold my-4 text-white" {...props} />,
-              h2: ({ ...props }) => <h2 className="text-3xl font-semibold my-3 text-white" {...props} />,
-              h3: ({ ...props }) => <h3 className="text-2xl font-semibold my-2 text-white" {...props} />,
-              p: ({ children, ...props }) => {
-                const hasOnlyImage = React.Children.toArray(children).every(
-                  child => React.isValidElement(child) && child.type === 'img'
-                );
-                
-                if (hasOnlyImage) {
-                  return <>{children}</>;
-                }
-                
-                return <p className="text-lg my-2 text-gray-300" {...props}>{children}</p>;
-              },
-              img: ({ src, alt }) => {
-                const srcString = typeof src === 'string' ? src : '';
-                if (!srcString) return null;
-                
-                const imageUrl = srcString.startsWith('http') 
-                  ? srcString 
-                  : srcString.replace(/^\/public/, '');
-                
-                return (
-                  <span className="block my-4">
-                    <Image
-                      src={imageUrl}
-                      alt={alt || ''}
-                      width={800}
-                      height={600}
-                      className="rounded-lg"
-                      priority
-                    />
-                  </span>
-                );
-              },
-              // Removed unused 'node' and 'className' parameters
-              code: ({ children, ...props }) => (
-                <code className="bg-gray-800 rounded px-1 py-0.5" {...props}>{children}</code>
-              ),
-              // Removed unused 'node' parameter
-              pre: ({ children, ...props }) => (
-                <pre className="bg-gray-800 rounded p-4 my-4 overflow-x-auto" {...props}>
-                  {children}
-                </pre>
-              ),
-            }}
-          >
-            {readmeContent}
-          </ReactMarkdown>
-        </div>
-      )}
-    </div>
+      {documentation && <div className="prose prose-invert max-w-none"><ReactMarkdown remarkPlugins={[remarkGfm]} components={{
+        h1: ({ children }) => <h2>{children}</h2>,
+        img: ({ src, alt }) => typeof src === 'string' ? <span className="block"><Image src={src.replace(/^\/public\//, '/')} alt={alt || ''} width={800} height={600} unoptimized className="h-auto max-w-full rounded-lg" /></span> : null,
+      }}>{documentation}</ReactMarkdown></div>}
+    </article>
   );
-};
-
-export default ProjectPage;
+}

@@ -1,3 +1,21 @@
+import type { ReactNode } from 'react';
+
+export interface SectionProps {
+  title: string;
+  children: ReactNode;
+}
+
+export interface ListItemProps {
+  title: string;
+  description: string;
+}
+
+export interface ContactLinkProps {
+  href: string;
+  text?: string;
+  children?: ReactNode;
+}
+
 export interface ProjectProps {
   title: string;
   slug: string;
@@ -10,4 +28,5 @@ export interface ProjectProps {
   externalLabel?: string;
   featured?: boolean;
   category?: string;
+  cvSummary?: string;
 }
