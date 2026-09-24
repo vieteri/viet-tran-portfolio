@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import type { ProjectProps } from '@/app/interfaces';
 import ProjectMedia from './ProjectMedia';
 
@@ -14,7 +14,10 @@ export default function ProjectCard({ project }: { project: ProjectProps }) {
         <h3><Link href={href} {...external}>{project.title}</Link></h3>
         <p className="work-category">{project.category === 'App Store' ? 'Independent product · Published on the App Store' : 'Client website · Web development'}</p>
         <p>{project.description}</p>
-        <Link href={href} {...external} className="text-link">{project.externalLabel || 'Project details'}<ArrowUpRight size={18} aria-hidden="true" /></Link>
+        <div className="actions">
+          {project.slug === 'dartscope' && <Link href={`/projects/${project.slug}`} className="text-link">View screenshots<ArrowRight size={18} aria-hidden="true" /></Link>}
+          <Link href={href} {...external} className="text-link">{project.externalLabel || 'Project details'}<ArrowUpRight size={18} aria-hidden="true" /></Link>
+        </div>
       </div>
     </article>
   );

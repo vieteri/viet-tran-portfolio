@@ -8,8 +8,10 @@ import ServiceList from '@/components/ServiceList';
 import ContactBlock from '@/components/ContactBlock';
 import { featuredProjects } from '@/data/projectsData';
 import { profile } from '@/data/profile';
+import dartscopeMedia from '@/data/dartscopeMedia.json';
 
 export const metadata: Metadata = { alternates: { canonical: '/' } };
+const dartscopePreview = dartscopeMedia.screenshots[0];
 
 export default function Home() {
   return (
@@ -25,7 +27,7 @@ export default function Home() {
           <figcaption>A client website. Two published apps.</figcaption>
           <a href="https://tmbeauty.fi/" target="_blank" rel="noopener noreferrer" className="hero-web" aria-label="Visit TM Beauty"><Image src="/work/tmbeauty.webp" alt="TM Beauty website" width={1440} height={820} sizes="(max-width: 700px) 85vw, 40vw" priority /></a>
           <a href="https://apps.apple.com/us/app/kovafit/id6758958067" target="_blank" rel="noopener noreferrer" className="hero-fitness" aria-label="KovaFit on the App Store"><Image src="/work/kovafit-2.webp" alt="KovaFit workout logging screenshot" width={720} height={1560} sizes="(max-width: 700px) 30vw, 180px" priority /></a>
-          <a href="https://apps.apple.com/us/app/dartscope/id6760133199" target="_blank" rel="noopener noreferrer" className="hero-darts" aria-label="DartScope on the App Store"><Image src="/work/dartscope-1.webp" alt="DartScope venue discovery screenshot" width={720} height={1560} sizes="(max-width: 700px) 25vw, 155px" priority /></a>
+          <a href="https://apps.apple.com/us/app/dartscope/id6760133199" target="_blank" rel="noopener noreferrer" className="hero-darts" aria-label="DartScope on the App Store"><Image src={dartscopePreview.src} alt={dartscopePreview.alt} width={dartscopePreview.width} height={dartscopePreview.height} sizes="(max-width: 700px) 25vw, 155px" priority /></a>
         </figure>
       </section>
       <section id="projects" className="shell work-section">

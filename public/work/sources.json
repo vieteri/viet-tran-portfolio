@@ -16,25 +16,63 @@
     "height": 1560
   },
   {
-    "file": "dartscope-1.webp",
-    "source": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/2c/1a/df/2c1adfe3-edce-0e10-b684-c78770ae454a/01-dashboard.png/720x1560bb.jpg",
-    "listing": "https://apps.apple.com/fi/app/dartscope/id6760133199?uo=4",
-    "capturedAt": "2026-09-22T10:29:37.662Z",
-    "width": 718,
-    "height": 1560
-  },
-  {
-    "file": "dartscope-2.webp",
-    "source": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/7d/48/0c/7d480c6f-63e0-c6d4-4dc3-86e2893671ab/03-list.png/720x1560bb.jpg",
-    "listing": "https://apps.apple.com/fi/app/dartscope/id6760133199?uo=4",
-    "capturedAt": "2026-09-22T10:29:38.128Z",
-    "width": 718,
-    "height": 1560
-  },
-  {
     "file": "tmbeauty.webp",
     "source": "https://tmbeauty.fi/",
     "capturedAt": "2026-09-22T10:29:44.207Z",
     "type": "Actual homepage screenshot"
+  },
+  {
+    "file": "dartscope-1.0.6-discover.webp",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/5f/fb/df/5ffbdff7-61c5-92dd-d565-1316b28e6032/01-discover.png/720x1560bb.webp",
+    "listing": "https://apps.apple.com/fi/app/dartscope/id6760133199",
+    "appVersion": "1.0.6",
+    "capturedAt": "2026-09-24T07:32:54.412Z",
+    "width": 718,
+    "height": 1560
+  },
+  {
+    "file": "dartscope-1.0.6-map.webp",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/cb/70/94/cb7094fe-d90f-d4af-5011-e54a19007d67/02-map.png/720x1560bb.webp",
+    "listing": "https://apps.apple.com/fi/app/dartscope/id6760133199",
+    "appVersion": "1.0.6",
+    "capturedAt": "2026-09-24T07:32:54.412Z",
+    "width": 718,
+    "height": 1560
+  },
+  {
+    "file": "dartscope-1.0.6-score.webp",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/5b/28/20/5b2820f6-a490-b0fc-1eae-c31c5442bee3/03-score.png/720x1560bb.webp",
+    "listing": "https://apps.apple.com/fi/app/dartscope/id6760133199",
+    "appVersion": "1.0.6",
+    "capturedAt": "2026-09-24T07:32:54.412Z",
+    "width": 718,
+    "height": 1560
+  },
+  {
+    "file": "dartscope-1.0.6-venues.webp",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/29/be/5a/29be5ab3-7e5d-05e9-9b24-4cf595b2c648/04-venues.png/720x1560bb.webp",
+    "listing": "https://apps.apple.com/fi/app/dartscope/id6760133199",
+    "appVersion": "1.0.6",
+    "capturedAt": "2026-09-24T07:32:54.412Z",
+    "width": 718,
+    "height": 1560
+  },
+  {
+    "file": "dartscope-1.0.6-game.webp",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/b3/3f/73/b33f739f-94b0-bc00-0b0d-cf1e2fe01a8c/05-game.png/720x1560bb.webp",
+    "listing": "https://apps.apple.com/fi/app/dartscope/id6760133199",
+    "appVersion": "1.0.6",
+    "capturedAt": "2026-09-24T07:32:54.412Z",
+    "width": 718,
+    "height": 1560
+  },
+  {
+    "file": "dartscope-1.0.6-details.webp",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/b1/0f/b2/b10fb290-c07c-e1a3-a3b4-e22121d78163/06-details.png/720x1560bb.webp",
+    "listing": "https://apps.apple.com/fi/app/dartscope/id6760133199",
+    "appVersion": "1.0.6",
+    "capturedAt": "2026-09-24T07:32:54.412Z",
+    "width": 718,
+    "height": 1560
   }
 ]
