@@ -1,0 +1,10 @@
+.bastion-doc { max-width: 800px; padding-top: 48px; padding-bottom: 80px; }
+.bastion-doc nav { display: flex; flex-wrap: wrap; gap: 12px 28px; padding-bottom: 28px; border-bottom: 1px solid var(--line); }
+.bastion-doc nav a, .bastion-doc article a { color: var(--accent); text-decoration: underline; }
+.bastion-doc h1 { font-family: var(--font-display), serif; font-size: clamp(2.3rem, 6vw, 3.8rem); line-height: 1.08; margin: 36px 0 20px; overflow-wrap: anywhere; }
+.bastion-doc h2 { font-family: var(--font-display), serif; font-size: 1.7rem; line-height: 1.2; margin: 36px 0 12px; }
+.bastion-doc p, .bastion-doc li { font-size: 1rem; line-height: 1.75; }
+.bastion-doc p { margin: 12px 0; }
+.bastion-doc ul { list-style: disc; padding-left: 24px; }
+.bastion-doc li { margin: 8px 0; }
+.bastion-doc .updated { color: var(--muted); font-size: .9rem; }
