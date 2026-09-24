@@ -1,0 +1,104 @@
+.gallery {
+  margin-top: 56px;
+  padding-top: 40px;
+  border-top: 1px solid var(--line);
+}
+
+.intro {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 40px;
+  align-items: end;
+}
+
+.intro p {
+  margin: 0;
+  max-width: 48ch;
+  line-height: 1.8;
+}
+
+.note {
+  margin: 30px 0 24px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 38px 32px;
+}
+
+.figure {
+  min-width: 0;
+  margin: 0;
+}
+
+.imageLink {
+  display: block;
+  border-radius: 6px;
+}
+
+.imageLink:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 6px;
+}
+
+.imageLink img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+
+.figure figcaption {
+  margin-top: 14px;
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.6;
+  font-weight: 600;
+}
+
+.source {
+  margin: 30px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.source a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 30px 24px;
+  }
+}
+
+@media (max-width: 700px) {
+  .gallery {
+    margin-top: 38px;
+    padding-top: 30px;
+  }
+
+  .intro {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .intro p {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 479px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+}

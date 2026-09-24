@@ -24,7 +24,7 @@ export const projects: ProjectProps[] = [
   {
     slug: 'dartscope',
     title: 'DartScope',
-    description: 'Published iPhone and iPad app for discovering darts venues, reading community reviews and tracking matches.',
+    description: 'Find a place to play, then keep score. An iPhone and iPad darts app with venue maps, Quick Match and community reviews.',
     cvSummary: 'Darts venue discovery and match tracking.',
     externalLink: 'https://apps.apple.com/us/app/dartscope/id6760133199',
     externalLabel: 'View on App Store',
