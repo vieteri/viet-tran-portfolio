@@ -1,0 +1,62 @@
+{
+  "version": "1.0.6",
+  "listing": "https://apps.apple.com/fi/app/dartscope/id6760133199",
+  "releasedAt": "2026-09-23T18:32:16Z",
+  "capturedAt": "2026-09-24T07:32:54.412Z",
+  "screenshots": [
+    {
+      "id": "discover",
+      "src": "/work/dartscope-1.0.6-discover.webp",
+      "alt": "DartScope Discover screen with featured darts venues and Quick Match",
+      "caption": "Discover places to play",
+      "width": 718,
+      "height": 1560,
+      "source": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/5f/fb/df/5ffbdff7-61c5-92dd-d565-1316b28e6032/01-discover.png/720x1560bb.webp"
+    },
+    {
+      "id": "map",
+      "src": "/work/dartscope-1.0.6-map.webp",
+      "alt": "DartScope map showing darts venues and their locations",
+      "caption": "Find a board nearby",
+      "width": 718,
+      "height": 1560,
+      "source": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/cb/70/94/cb7094fe-d90f-d4af-5011-e54a19007d67/02-map.png/720x1560bb.webp"
+    },
+    {
+      "id": "score",
+      "src": "/work/dartscope-1.0.6-score.webp",
+      "alt": "DartScope live match scoring screen",
+      "caption": "Keep score at the board",
+      "width": 718,
+      "height": 1560,
+      "source": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/5b/28/20/5b2820f6-a490-b0fc-1eae-c31c5442bee3/03-score.png/720x1560bb.webp"
+    },
+    {
+      "id": "venues",
+      "src": "/work/dartscope-1.0.6-venues.webp",
+      "alt": "DartScope venue list with search and filters",
+      "caption": "Browse darts venues",
+      "width": 718,
+      "height": 1560,
+      "source": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/29/be/5a/29be5ab3-7e5d-05e9-9b24-4cf595b2c648/04-venues.png/720x1560bb.webp"
+    },
+    {
+      "id": "game",
+      "src": "/work/dartscope-1.0.6-game.webp",
+      "alt": "DartScope match setup with game modes and player options",
+      "caption": "Set up your next match",
+      "width": 718,
+      "height": 1560,
+      "source": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/b3/3f/73/b33f739f-94b0-bc00-0b0d-cf1e2fe01a8c/05-game.png/720x1560bb.webp"
+    },
+    {
+      "id": "details",
+      "src": "/work/dartscope-1.0.6-details.webp",
+      "alt": "DartScope venue details with photos and board information",
+      "caption": "Know before you go",
+      "width": 718,
+      "height": 1560,
+      "source": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/b1/0f/b2/b10fb290-c07c-e1a3-a3b4-e22121d78163/06-details.png/720x1560bb.webp"
+    }
+  ]
+}
