@@ -76,6 +76,24 @@ try {
     }
     record(`Updated DartScope images load on ${route}`);
   }
+  for (const route of ['/', '/projects']) {
+    for (const width of [390, 1440]) {
+      await page.setViewportSize({ width, height: 1000 });
+      await go(route);
+      const card = page.locator('.work-entry--dartscope');
+      const details = card.getByRole('link', { name: 'View screenshots', exact: true });
+      assert(await details.isVisible(), `Gallery link is visible on ${route} at ${width}px`);
+      assert.equal(await details.getAttribute('href'), '/projects/dartscope');
+      assert.equal(await details.getAttribute('target'), null, 'Gallery navigation stays in the same tab');
+      const appStore = card.getByRole('link', { name: 'View on App Store', exact: true });
+      assert.equal(await appStore.getAttribute('href'), 'https://apps.apple.com/us/app/dartscope/id6760133199');
+      assert.equal(await appStore.getAttribute('target'), '_blank', 'Keep the separate App Store action');
+      await details.click();
+      await page.waitForURL('**/projects/dartscope');
+      assert.equal(await page.locator('[data-dartscope-gallery] img').count(), 6);
+      record(`Visitors can open the six-image gallery from ${route} at ${width}px`);
+    }
+  }
   await go('/projects/dartscope');
   assert.equal(await page.locator('h1').innerText(), 'DartScope');
   const gallery = page.locator('[data-dartscope-gallery]');
