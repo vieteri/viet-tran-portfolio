@@ -4,8 +4,9 @@ import { experienceData } from './experience';
 // Role names, employers and dates still come from the shared career data.
 const conciseDescriptions: Record<string, string[]> = {
   'S-Pankki': [
-    'Design and implement APIs and integration solutions for banking systems.',
-    'Deliver integrations from architecture and development through testing and production.',
+    'Promotion effective Nov 2026; Integration Developer since Aug 2025.',
+    'Act as a product owner: identify business needs and define implementation specifications for other developers.',
+    'Test implementations against business requirements and verify correctness before production deployment.',
   ],
   'Frends Enterprise iPaaS': [
     'Developed ERP integrations for Dynamics 365 Finance & Operations, Business Central and SAP.',
