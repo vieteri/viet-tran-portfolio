@@ -44,6 +44,7 @@ jobs:
           for filename in Path('test-results/portfolio').glob('*.pdf'):
               pdf = PdfReader(filename)
               assert len(pdf.pages) == 1, filename
+              assert len(pdf.pages[0].images) >= 1, f'{filename}: profile portrait must be embedded'
               text = pdf.pages[0].extract_text()
               for phrase in ['100+', 'S-Pankki', 'Frends', 'Softsys', 'KovaFit', 'DartScope', 'Languages:', 'professional']:
                   assert phrase in text, (filename, phrase)

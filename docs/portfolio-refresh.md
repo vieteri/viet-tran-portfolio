@@ -14,6 +14,8 @@ The canonical route is `/about/cv`; `/cv` redirects there. The old CV component 
 
 The CV is a curated single-column document using 10.5pt body text, normal document flow and 12mm A4 margins. There is no fixed height, overflow clipping or shrink-to-fit transform. Print/save PDF uses the browser print dialog. Use A4, 100% scale and turn off browser-generated headers and footers.
 
+The header includes the existing `public/viet-2026.png` profile portrait beside the name and contact details. It stays visible in print, and the PDF checks verify that an image is embedded while the CV remains one A4 page.
+
 `src/data/cv.ts` curates concise descriptions while retaining shared role names and dates. New career entries must be reviewed deliberately instead of making the one-page document grow automatically.
 
 ## Verification
