@@ -9,13 +9,13 @@ export const educationData: EducationItem[] = [
     {
         degree: "Master's degree in Automation and Electrical Engineering",
         school: "Aalto University",
-        year: "2019",
+        year: "2023",
         description: "Major: Translational Engineering, Smart Buildings."
     },
     {
         degree: "Bachelor's degree in Electrical Engineering",
         school: "Aalto University",
-        year: "2016",
+        year: "2020",
         description: "Major: Automation, Minor: Computer Science."
     }
 ];

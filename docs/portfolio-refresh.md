@@ -3,7 +3,7 @@
 ## Content source
 
 - Viet confirmed **100+ client integrations** on 22 September 2026. This is a career-wide delivery total, not a claim of 100 customers or 100 integrations at S-Pankki alone.
-- Shared career titles, periods and education come from `src/data/experience.ts` and `src/data/education.ts`. Existing education dates are preserved; they were not independently reverified.
+- Shared career titles, periods and education come from `src/data/experience.ts` and `src/data/education.ts`. Viet confirmed the graduation years on 24 October 2026: bachelor's in 2020 and master's in 2023.
 - Live references: https://tmbeauty.fi/, https://apps.apple.com/us/app/kovafit/id6758958067 and https://apps.apple.com/us/app/dartscope/id6760133199. Public listings establish the app names and advertised features. No download, revenue, review or business-conversion claims are made.
 - Client work and independent products are labelled separately from employment experience.
 
