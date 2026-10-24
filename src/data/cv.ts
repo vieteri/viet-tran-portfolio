@@ -7,6 +7,7 @@ const conciseDescriptions: Record<string, string[]> = {
     'Promotion effective Nov 2026; Integration Developer since Aug 2025.',
     'Act as a product owner: translate business needs into technical solutions and write specifications for developers to implement.',
     'Test implementations against business requirements and verify correctness before production deployment.',
+    'Participate in occasional CIRT on-call duty.',
   ],
   'Frends Enterprise iPaaS': [
     'Developed ERP integrations for Dynamics 365 Finance & Operations, Business Central and SAP.',

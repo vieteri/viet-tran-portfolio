@@ -15,7 +15,8 @@ export const experienceData: ExperienceItem[] = [
             "Promotion effective Nov 2026; Integration Developer since Aug 2025.",
             "Act as a product owner for banking integrations, translating business needs into technical solutions and writing specifications for developers to implement.",
             "Test completed implementations against business requirements and verify correctness before deploying to production.",
-            "Design APIs and integration architecture for financial systems and banking infrastructure."
+            "Design APIs and integration architecture for financial systems and banking infrastructure.",
+            "Participate in occasional CIRT on-call duty."
         ],
         technologies: ["Integration Engineering", "Integration Architecture", "API Design", "Banking Systems"]
     },
