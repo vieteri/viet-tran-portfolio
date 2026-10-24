@@ -5,7 +5,7 @@ import { experienceData } from './experience';
 const conciseDescriptions: Record<string, string[]> = {
   'S-Pankki': [
     'Promotion effective Nov 2026; Integration Developer since Aug 2025.',
-    'Act as a product owner: identify business needs and define implementation specifications for other developers.',
+    'Act as a product owner: translate business needs into technical solutions and write specifications for developers to implement.',
     'Test implementations against business requirements and verify correctness before production deployment.',
   ],
   'Frends Enterprise iPaaS': [
