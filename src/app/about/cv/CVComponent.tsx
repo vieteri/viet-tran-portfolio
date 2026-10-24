@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { profile, integrationLabel } from '@/data/profile';
 import { cvExperience, cvSkills, earlierExperience } from '@/data/cv';
 import { educationData } from '@/data/education';
@@ -14,10 +15,13 @@ export default function CVComponent() {
       </div>
       <article id="printable-cv" aria-label="Viet Tran curriculum vitae">
         <header className="cv-header">
-          <h1>{profile.name}</h1>
-          <p className="cv-title">{profile.title}</p>
-          <div className="cv-contact"><span>{profile.location}</span><a href={`mailto:${profile.email}`}>{profile.email}</a><a href={profile.website}>viet.fi</a></div>
-          <div className="cv-contact cv-contact-secondary"><a href={profile.github}>github.com/vieteri</a><a href={profile.linkedin}>linkedin.com/in/viet-tran-a9a492a8</a></div>
+          <div className="cv-identity">
+            <h1>{profile.name}</h1>
+            <p className="cv-title">{profile.title}</p>
+            <div className="cv-contact"><span>{profile.location}</span><a href={`mailto:${profile.email}`}>{profile.email}</a><a href={profile.website}>viet.fi</a></div>
+            <div className="cv-contact cv-contact-secondary"><a href={profile.github}>github.com/vieteri</a><a href={profile.linkedin}>linkedin.com/in/viet-tran-a9a492a8</a></div>
+          </div>
+          <Image className="cv-portrait" src="/viet-2026.png" alt="Portrait of Viet Tran" width={420} height={420} sizes="(max-width: 640px) 68px, 106px" priority />
         </header>
         <p>Software engineer and consultant with <strong>{integrationLabel}</strong> delivered across my career. Experience in banking, ERP integrations and industrial software, alongside live client websites and two published App Store apps.</p>
         <section aria-labelledby="cv-experience">

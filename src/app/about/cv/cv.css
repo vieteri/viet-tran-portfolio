@@ -9,11 +9,14 @@
 #printable-cv h1, #printable-cv h2, #printable-cv h3, #printable-cv p, #printable-cv ul { margin: 0; }
 #printable-cv a { color: #145e64; text-decoration: none; }
 #printable-cv a:hover { text-decoration: underline; }
-#printable-cv .cv-header { border-bottom: 2px solid #145e64; padding-bottom: 4mm; margin-bottom: 4mm; }
+#printable-cv .cv-header { display: grid; grid-template-columns: minmax(0, 1fr) 28mm; align-items: start; gap: 6mm; border-bottom: 2px solid #145e64; padding-bottom: 4mm; margin-bottom: 4mm; }
+#printable-cv .cv-identity { min-width: 0; }
+#printable-cv .cv-portrait { width: 28mm; height: 28mm; object-fit: cover; border-radius: 2mm; }
 #printable-cv h1 { font-size: 30pt; line-height: 1.05; font-weight: 700; letter-spacing: -.8pt; }
 #printable-cv .cv-title { font-size: 12pt; margin-top: 2mm; color: #145e64; font-weight: 700; }
 #printable-cv .cv-contact { margin-top: 2.5mm; display: flex; flex-wrap: wrap; gap: 1mm 4mm; font-size: 9pt; }
 #printable-cv .cv-contact-secondary { margin-top: 1mm; }
+#printable-cv .cv-contact a { overflow-wrap: anywhere; }
 #printable-cv section { margin-top: 4mm; }
 #printable-cv h2 { font-size: 10pt; line-height: 1.2; text-transform: uppercase; letter-spacing: 1pt; font-weight: 700; color: #145e64; padding-bottom: 1.6mm; border-bottom: 1px solid #d9e2e7; margin-bottom: 2mm; }
 #printable-cv h3 { font-size: 10.5pt; font-weight: 700; }
@@ -35,6 +38,8 @@
   .cv-page { padding: 20px 12px; }
   .cv-toolbar { align-items: stretch; flex-direction: column; }
   #printable-cv { padding: 24px 20px; font-size: 14px; }
+  #printable-cv .cv-header { grid-template-columns: minmax(0, 1fr) 18mm; gap: 4mm; }
+  #printable-cv .cv-portrait { width: 18mm; height: 18mm; }
   #printable-cv .cv-role-header, #printable-cv .cv-education-row { flex-direction: column; gap: 1mm; }
   #printable-cv .cv-role { margin-top: 5mm; }
   #printable-cv .cv-contact { flex-direction: column; }

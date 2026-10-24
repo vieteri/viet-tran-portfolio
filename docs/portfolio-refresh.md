@@ -3,7 +3,8 @@
 ## Content source
 
 - Viet confirmed **100+ client integrations** on 22 September 2026. This is a career-wide delivery total, not a claim of 100 customers or 100 integrations at S-Pankki alone.
-- Shared career titles, periods and education come from `src/data/experience.ts` and `src/data/education.ts`. Existing education dates are preserved; they were not independently reverified.
+- Shared career titles, periods and education come from `src/data/experience.ts` and `src/data/education.ts`. Viet confirmed the graduation years on 24 October 2026: bachelor's in 2020 and master's in 2023.
+- Viet confirmed the S-Pankki promotion to Senior Integration Engineer effective November 2026. Employment began in August 2025 as an Integration Developer. The role includes product ownership responsibilities: translating business needs into technical solutions, writing specifications for developers to implement, testing implementations and verifying correctness before production deployment. The role also includes occasional CIRT on-call duty.
 - Live references: https://tmbeauty.fi/, https://apps.apple.com/us/app/kovafit/id6758958067 and https://apps.apple.com/us/app/dartscope/id6760133199. Public listings establish the app names and advertised features. No download, revenue, review or business-conversion claims are made.
 - Client work and independent products are labelled separately from employment experience.
 
@@ -12,6 +13,8 @@
 The canonical route is `/about/cv`; `/cv` redirects there. The old CV component re-exports the canonical implementation so stale employer data cannot be rendered from it.
 
 The CV is a curated single-column document using 10.5pt body text, normal document flow and 12mm A4 margins. There is no fixed height, overflow clipping or shrink-to-fit transform. Print/save PDF uses the browser print dialog. Use A4, 100% scale and turn off browser-generated headers and footers.
+
+The header includes the existing `public/viet-2026.png` profile portrait beside the name and contact details. It stays visible in print, and the PDF checks verify that an image is embedded while the CV remains one A4 page.
 
 `src/data/cv.ts` curates concise descriptions while retaining shared role names and dates. New career entries must be reviewed deliberately instead of making the one-page document grow automatically.
 

@@ -56,7 +56,11 @@ try {
   };
 
   await go('/about/cv');
+  const portrait = page.getByRole('img', { name: 'Portrait of Viet Tran', exact: true });
+  assert.equal(await portrait.count(), 1, 'CV must include the profile portrait');
+  await portrait.evaluate((image) => image.decode());
   await page.emulateMedia({ media: 'print' });
+  assert(await portrait.isVisible(), 'The portrait must remain visible when printing');
   for (const width of [1440, 390]) {
     await page.setViewportSize({ width, height: 1000 });
     const pdf = await page.pdf({ format: 'A4', preferCSSPageSize: true, printBackground: true, displayHeaderFooter: false, path: `${output}/viet-tran-cv-${width}.pdf` });
